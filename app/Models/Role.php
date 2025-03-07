@@ -11,7 +11,7 @@ class Role extends Model
 
     protected $table = 'role';
     protected $primarykey = 'id';
-    protected $keyType = 'string';
+    protected $keyType = 'int';
     public $incrementing = 'false';
 
     protected $fillable = [
