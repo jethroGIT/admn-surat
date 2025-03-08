@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function(){
+    return view ('layout.layout');
+});
+
+// Routes User
+Route::get('user/{role}/create', [UserController::class, 'create']);
+Route::post('user/{role}/store', [UserController::class, 'store']);
+
+
+// Routes Mahasiswa
+Route::get('kelola-mahasiswa', [MahasiswaController::class, 'index']);
+Route::get('kelola-mahasiswa/{nrp}/create', [MahasiswaController::class, 'create'])->name('createMahasiswa');
+Route::post('kelola-mahasiswa/{nrp}/store', [MahasiswaController::class, 'store']);

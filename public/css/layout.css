@@ -1,0 +1,67 @@
+html {
+    overflow-y: scroll;
+}
+
+.sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #22bd9b;
+    padding-top: 20px;
+    overflow-y: auto;
+}
+
+.sidebar h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.sidebar .nav-link {
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #61dec353;
+    border-radius: 4px;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.navbar {
+    margin-left: 250px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 5px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.submenu {
+    display: none;
+    margin-left: 30px;
+}
+
+.submenu li a {
+    padding: 5px;
+}

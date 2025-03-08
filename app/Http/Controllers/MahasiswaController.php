@@ -10,17 +10,19 @@ class MahasiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $id = $request->title ?? '';
+        $mahasiswas = Mahasiswa::where('nrp', 'LIKE', '%' . $id . '%')->simplePaginate(10);
+        return view('kelola-mahasiswa.index', compact('id', 'mahasiswas'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($nrp)
     {
-        //
+        return view('kelola-mahasiswa.create', compact('nrp'));
     }
 
     /**
