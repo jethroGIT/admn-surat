@@ -1,4 +1,4 @@
-<form action="{{ url('kelola-mahasiswa/'.$nrp.'/store') }}" method="POST">
+<form action="" method="POST">
     @csrf
     <label for="nrp">NRP:</label>
     <input type="text" id="nrp" name="nrp" required><br>
@@ -27,9 +27,12 @@
     <label for="no_tlp">Nomor Telepon:</label>
     <input type="tel" id="no_tlp" name="no_tlp" required><br>
     
+    <label for="status_mhs">Status:</label>
+    <select id="status_mhs" name="status_mhs" required>
+        <option value="aktif">Aktif</option>
+        <option value="cuti">Cuti</option>
+        <option value="lulus">Lulus</option>
+    </select><br>
     
     <button type="submit">Simpan</button>
 </form>
-
-
-<h1>{{$nrp}}</h1>

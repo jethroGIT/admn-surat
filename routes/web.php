@@ -29,6 +29,6 @@ Route::post('user/{role}/store', [UserController::class, 'store']);
 
 
 // Routes Mahasiswa
-Route::get('kelola-mahasiswa', [MahasiswaController::class, 'index']);
+Route::get('kelola-mahasiswa', [MahasiswaController::class, 'index'])->name('indexMahasiswa');
 Route::get('kelola-mahasiswa/{nrp}/create', [MahasiswaController::class, 'create'])->name('createMahasiswa');
 Route::post('kelola-mahasiswa/{nrp}/store', [MahasiswaController::class, 'store']);
