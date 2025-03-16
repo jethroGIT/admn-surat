@@ -17,10 +17,6 @@ class Mahasiswa extends Model
     public $fillable = [
         'nrp',
         'nama',
-        'dosen_wali',
-        'fakultas',
-        'prodi',
-        'angkatan_mhs',
         'alamat',
         'email',
         'no_tlp',

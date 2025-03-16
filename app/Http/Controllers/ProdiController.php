@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Perwalian;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 
-class PerwalianController extends Controller
+class ProdiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class PerwalianController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Perwalian $perwalian)
+    public function show(prodi $prodi)
     {
         //
     }
@@ -42,7 +42,7 @@ class PerwalianController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Perwalian $perwalian)
+    public function edit(prodi $prodi)
     {
         //
     }
@@ -50,7 +50,7 @@ class PerwalianController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Perwalian $perwalian)
+    public function update(Request $request, prodi $prodi)
     {
         //
     }
@@ -58,7 +58,7 @@ class PerwalianController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Perwalian $perwalian)
+    public function destroy(prodi $prodi)
     {
         //
     }

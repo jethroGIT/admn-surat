@@ -18,10 +18,10 @@ class User extends Authenticatable
     public $incrementing = 'false';
 
     protected $fillable = [
-        'id_role',
         'username',
-        'email',
-        'password'
+        'password',
+        'id_role',
+        'id_prodi'
     ];
 
     protected $hidden = 'password';

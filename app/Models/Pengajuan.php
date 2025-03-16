@@ -17,12 +17,6 @@ class Pengajuan extends Model
     protected $fillable = [
         'id',
         'nrp',
-        'nama',
-        'fakultas',
-        'prodi',
-        'alamat',
-        'email',
-        'no_tlp',
         'periode',
         'kategori',
         'keterangan',

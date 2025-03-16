@@ -36,11 +36,12 @@ class UserController extends Controller
         // $data = [$role, $request->username, bcrypt($request->password)];
         // return $data;
 
-        // User::create([
-        //     'id_role' => $role,
-        //     'username' => $request->username,
-        //     'password' => bcrypt($request->password)
-        // ]);
+        User::create([
+                'username' => $request->username,
+                'password' => bcrypt($request->password),
+                'id_role' => $role,
+                'id_prodi' => 0,
+        ]);
         $username = $request->username;
         // return view('kelola-mahasiswa.create', compact('username'))
         return redirect()->route('createMahasiswa', ['nrp' => $username]);;

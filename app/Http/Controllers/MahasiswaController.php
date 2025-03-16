@@ -33,23 +33,14 @@ class MahasiswaController extends Controller
         $request->validate([
             'nrp' => 'required',
             'nama' => 'required',
-            'dosen_wali' => 'required',
-            'fakultas' => 'required',
-            'prodi' => 'required',
-            'angkatan_mhs' => 'required',
             'alamat' => 'required',
             'email' => 'required',
             'no_tlp' => 'required',
-            'status_mhs' => 'required'
         ]);
 
         Mahasiswa::create([
             'nrp' => $request->nrp,
             'nama' => $request->nama,
-            'dosen_wali' => $request->dosen_wali,
-            'fakultas' => $request->fakultas,
-            'prodi' => $request->prodi,
-            'angkatan_mhs' => $request->angkatan_mhs,
             'alamat' => $request->alamat,
             'email' => $request->email,
             'no_tlp' => $request->no_tlp,

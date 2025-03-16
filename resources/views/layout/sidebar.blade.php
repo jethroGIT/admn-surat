@@ -12,7 +12,7 @@
             <ul id="kelola-akun" class="submenu">
                 <li><a href="#" class="nav-link text-white">Akun Karyawan</a></li>
                 <li><a href="#" class="nav-link text-white">Akun Dosen</a></li>
-                <li><a href="kelola-mahasiswa" class="nav-link text-white">Akun Mahasiswa</a></li>
+                <li><a href="/kelola-mahasiswa" class="nav-link text-white">Akun Mahasiswa</a></li>
             </ul>
         </li>
         <li class="nav-item">

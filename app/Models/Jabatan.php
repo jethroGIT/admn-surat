@@ -5,18 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Jabatan extends Model
 {
     use HasFactory;
 
-    protected $table = 'role';
-    protected $primarykey = 'id';
+    protected $table = 'jabatan';
+    protected $primaryKey = 'id';
     protected $keyType = 'int';
-    // public $incrementing = 'false';
+    // protected $incrementing = 'false';
 
     protected $fillable = [
         'id',
-        'role_name'
+        'id_username',
+        'jabatan',
+        'tahun_ajar',
+        'status'
     ];
-
 }
