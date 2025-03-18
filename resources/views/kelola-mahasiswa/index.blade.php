@@ -56,7 +56,7 @@
                             <td>
                                 <a href="{{ url('mahasiswa/' . $mahasiswa->nrp . '/view') }}">view</a>
                                 <a href="{{ url('mahasiswa/' . $mahasiswa->nrp . '/edit') }}"> | edit | </a>
-                                <a href="{{ url('mahasiswa/' . $mahasiswa->nrp . '/destroy') }}">delete</a>
+                                <a href="{{ url('user/' . $mahasiswa->nrp . '/destroy') }}">delete</a>
                             </td>
                         </tr>
                     @endforeach

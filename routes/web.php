@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MahasiswaController;
 
@@ -19,6 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', [AuthController::class, 'index']);
+Route::post('/login', [AuthController::class, 'login']);
+
+
 Route::get('/dashboard', function(){
     return view ('layout.layout');
 });
@@ -26,9 +31,14 @@ Route::get('/dashboard', function(){
 // Routes User
 Route::get('user/{role}/create', [UserController::class, 'create']);
 Route::post('user/{role}/store', [UserController::class, 'store']);
+Route::get('user/{username}/destroy', [UserController::class, 'destroy']);
 
 
 // Routes Mahasiswa
 Route::get('kelola-mahasiswa', [MahasiswaController::class, 'index'])->name('indexMahasiswa');
 Route::get('kelola-mahasiswa/{nrp}/create', [MahasiswaController::class, 'create'])->name('createMahasiswa');
 Route::post('kelola-mahasiswa/store', [MahasiswaController::class, 'store']);
+Route::get('kelola-mahasiswa/{nrp}/view', [MahasiswaController::class, 'show']);
+Route::get('kelola-mahasiswa/{nrp}/edit', [MahasiswaController::class, 'edit']);
+Route::put('kelola-mahasiswa/{nrp}/update', [MahasiswaController::class, 'update']);
+Route::delete('kelola-mahasiswa/{nrp}/delete', [UserController::class, 'destroy']);
