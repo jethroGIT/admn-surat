@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dosen;
+use App\Models\S_LHS;
 use Illuminate\Http\Request;
 
-class DosenController extends Controller
+class SLHSController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class DosenController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Dosen $dosen)
+    public function show(S_LHS $s_LHS)
     {
         //
     }
@@ -42,7 +42,7 @@ class DosenController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Dosen $dosen)
+    public function edit(S_LHS $s_LHS)
     {
         //
     }
@@ -50,7 +50,7 @@ class DosenController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Dosen $dosen)
+    public function update(Request $request, S_LHS $s_LHS)
     {
         //
     }
@@ -58,7 +58,7 @@ class DosenController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Dosen $dosen)
+    public function destroy(S_LHS $s_LHS)
     {
         //
     }

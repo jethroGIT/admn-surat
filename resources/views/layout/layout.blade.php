@@ -16,6 +16,7 @@
 </head>
 
 <body>
+
     <!-- Include Sidebar -->
     @include('layout.sidebar')
 
@@ -27,8 +28,22 @@
         @yield('content')
     </div>
 
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Welcome!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+    @endif
+
     <script src="{{ asset('js/layout.js') }}"></script>
-    @yield('ExtraJS') 
+    @yield('ExtraJS')
 </body>
 
 </html>

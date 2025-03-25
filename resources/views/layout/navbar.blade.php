@@ -10,7 +10,7 @@
                     <a class="nav-link" href="profile">Profil</a>
                 </li>
                 <li class="nav-item">
-                    <form action="" method="POST">
+                    <form action="{{url('/logout')}}" method="POST">
                         @csrf
                         <button type="submit" class="nav-link btn btn-link" style="display: inline;">Keluar</button>
                     </form>

@@ -7,6 +7,7 @@
     <button type="submit">Login</button>
 
 </form>
+
 <!-- SweetAlert2 Notification -->
 @if ($errors->any())
     <script>

@@ -26,14 +26,15 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($infoLogin)) {
+            session()->flash('success', 'Selamat Datang');
             return redirect('/dashboard');
         } else {
             return redirect('/login')->withErrors('Username atau Password salah')->withInput();
         }
+    }
 
-        // if (Auth::attempt($request->only('username', 'password'))) {
-        //     return redirect('/dashboard');
-        // }
-        // return redirect('/login');
+    function logout(){
+        Auth::logout();
+        return redirect('/login');
     }
 }

@@ -10,9 +10,9 @@
         <li class="nav-item">
             <a href="#" onclick="toggleSubMenu('kelola-akun')" class="nav-link text-white">Kelola Akun</a>
             <ul id="kelola-akun" class="submenu">
-                <li><a href="#" class="nav-link text-white">Akun Karyawan</a></li>
-                <li><a href="#" class="nav-link text-white">Akun Dosen</a></li>
-                <li><a href="/kelola-mahasiswa" class="nav-link text-white">Akun Mahasiswa</a></li>
+                <li><a href="{{ route('indexUser', ['tipe' => 'tu']) }}" class="nav-link text-white">Akun TU</a></li>
+                <li><a href="{{ route('indexUser', ['tipe' => 'kaprodi']) }}" class="nav-link text-white">Akun Kaprodi</a></li>
+                <li><a href="{{ route('indexUser', ['tipe' => 'mahasiswa']) }}" class="nav-link text-white">Akun Mahasiswa</a></li>
             </ul>
         </li>
         <li class="nav-item">

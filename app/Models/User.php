@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Prodi;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -21,7 +22,12 @@ class User extends Authenticatable
         'username',
         'password',
         'id_role',
-        'id_prodi'
+        'id_prodi',
+        'nama',
+        'alamat',
+        'email',
+        'no_tlp',
+        'status'
     ];
 
     protected $hidden = 'password';
@@ -29,4 +35,9 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed'
     ];
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class, 'id_prodi'); // Pastikan 'id_prodi' ada di tabel users
+    }
 }

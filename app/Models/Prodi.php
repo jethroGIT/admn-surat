@@ -10,13 +10,12 @@ class Prodi extends Model
     use HasFactory;
 
     protected $table = 'prodi';
-    protected $primarykey = 'id';
+    protected $primaryKey = 'id';
     protected $keyType = 'int';
     // public $incrementing = 'false';
 
     protected $fillable = [
         'id',
-        'id_fakultas',
         'nama_prodi'
     ];
 }

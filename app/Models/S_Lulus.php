@@ -5,17 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Fakultas extends Model
+class S_Lulus extends Model
 {
     use HasFactory;
 
-    protected $table = 'fakultas';
-    protected $primarykey = 'id';
+    protected $table = 'S_Lulus';
+    protected $primaryKey = 'id';
     protected $keyType = 'int';
     // public $incrementing = 'false';
 
     protected $fillable = [
         'id',
-        'nama_fakultas'
+        'nrp',
+        'nama',
+        'semester',
+        'alamat',
+        'keperluan',
+        'status',
+        'file'
     ];
 }
