@@ -34,11 +34,8 @@ Route::get('kelola-user/{tipe}', [UserController::class, 'index'])->name('indexU
 Route::get('kelola-user/{tipe}/create', [UserController::class, 'create'])->name('createUser');
 Route::post('kelola-user/{tipe}/store', [UserController::class, 'store'])->name('storeUser');
 Route::get('kelola-user/{tipe}/{username}/view', [UserController::class, 'show'])->name('showUser');
+Route::get('kelola-user/{tipe}/{username}/edit', [UserController::class, 'edit'])->name('editUser');
+Route::post('kelola-user/{tipe}/{username}/update', [UserController::class, 'update'])->name('updateUser');
 Route::delete('kelola-user/{tipe}/{username}/destroy', [UserController::class, 'destroy'])->name('destroyUser');
-
-Route::get('/clear-session', function () {
-    session()->flush();
-    return redirect()->back();
-});
 
 

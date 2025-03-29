@@ -22,12 +22,10 @@
                 <label for="id_prodi" class="block text-sm font-medium text-gray-700">Program Studi:</label>
                 <select id="id_prodi" name="id_prodi" required
                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                    <<option value="" {{ old('id_prodi') === null ? 'selected' : '' }}>Pilih Program Studi</option>
-                    @foreach ($prodis as $prodi)
-                        <option value="{{ $prodi->id }}" {{ old('id_prodi') == $prodi->id ? 'selected' : '' }}>
-                            {{ $prodi->nama_prodi }}
-                        </option>
-                    @endforeach
+                    <option value="">Pilih Program Studi</option>
+                    <option value="0" {{ old('id_prodi') == '0' ? 'selected' : '' }}>Teknik Informatika</option>
+                    <option value="1" {{ old('id_prodi') == '1' ? 'selected' : '' }}>Sistem Informasi</option>
+                    <option value="2" {{ old('id_prodi') == '2' ? 'selected' : '' }}>Magister Ilmu Komputer</option>
                 </select>
             </div>
 
@@ -57,7 +55,7 @@
 
             <div class="flex justify-between mt-6">
                 <button type="button"
-                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-md">Kembali</button>
+                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-md"><a href="{{ url()->previous() }}">Kembali</a></button>
                 <button type="submit"
                     class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-md">Simpan</button>
             </div>

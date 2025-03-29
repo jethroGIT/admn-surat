@@ -5,17 +5,15 @@
     <div class="container mt-1">
         <h1 class="text-3xl text-center font-bold text-dark mb-2">Daftar Mahasiswa</h1>
 
-
-
         <a href="{{ route('createUser', ['tipe' => 'mahasiswa']) }}" class="btn btn-primary mb-2">Tambah Mahasiswa</a>
 
-        {{-- <form method="GET">
+        <form method="GET">
             <div class="input-group mb-2">
                 <input type="text" name="search" value="{{ $id }}" class="form-control"
                     placeholder="Search by NRP" aria-label="Search by NRP" aria-describedby="button-addon2">
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
             </div>
-        </form> --}}
+        </form>
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover">

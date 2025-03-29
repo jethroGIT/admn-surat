@@ -11,7 +11,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($tipe)
+    public function index(Request $request, $tipe)
     {
         if ($tipe == 'kaprodi') {
             $users = User::where('id_role', 1)->simplePaginate(10);
@@ -20,14 +20,14 @@ class UserController extends Controller
             $users = User::where('id_role', 2)->simplePaginate(10);
         }
         if ($tipe == 'mahasiswa') {
-            $users = User::where('id_role', 3)->with('prodi')->simplePaginate(10);
-            return view('kelola-mahasiswa.index', compact('users', 'tipe')); 
+            $id = $request->search ?? '';
+            $users = User::where('username', 'LIKE', '%' . $id . '%')
+                ->where('id_role', 3)
+                ->with('prodi')
+                ->simplePaginate(10);
+            return view('kelola-mahasiswa.index', compact('id', 'users'));
         }
-        // $id = $request->title ?? '';
-        // $users = User::where('username', 'LIKE', '%' . $id . '%')
-        //     ->simplePaginate(10);
-        
-        // return view('kelola-mahasiswa.index', compact('id', 'users'));
+
     }
 
     /**
@@ -35,8 +35,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $prodis = Prodi::all();
-        return view('kelola-mahasiswa.create', compact('prodis'));
+        return view('kelola-mahasiswa.create');
     }
 
     /**
@@ -73,6 +72,12 @@ class UserController extends Controller
                 return redirect()->route('indexUser', ['tipe' => 'mahasiswa']);
             }
         }
+        if ($tipe == 'kaprodi') {
+            pass;
+        }
+        if ($tipe == 'tu') {
+            pass;
+        }
     }
 
     /**
@@ -86,11 +91,13 @@ class UserController extends Controller
         } else {
             if ($tipe == 'mahasiswa') {
                 $mahasiswa = User::where('username', $username)->with('prodi')->first();
-                if ($mahasiswa == null) {
-                    return back()->withErrors(['err_msg' => 'Data Mahasiswa tidak ditemukan!']);
-                }
-                // return $mahasiswa->username;
                 return view('kelola-mahasiswa.view', compact('mahasiswa')); 
+            }
+            if ($tipe == 'kaprodi') {
+                pass;
+            }
+            if ($tipe == 'tu') {
+                pass;
             }
         }
     }
@@ -98,17 +105,65 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit($tipe, $username)
     {
-        //
+        $user = User::where('username', $username)->first();
+        if ($user == null) {
+            return back()->withErrors(['err_msg' => 'Data Mahasiswa tidak ditemukan!']);
+        } else {
+            if ($tipe == 'mahasiswa') {
+                $mahasiswa = User::where('username', $username)->with('prodi')->first();
+                $prodis = Prodi::all();
+                return view('kelola-mahasiswa.edit', compact('mahasiswa', 'prodis'));
+            }
+            if ($tipe == 'kaprodi') {
+                pass;
+            }
+            if ($tipe == 'tu') {
+                pass;
+            }
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update($tipe, $username, Request $request)
     {
-        //
+        $request->validate([
+            'username' => 'required',
+            'id_prodi' => 'required',
+            'nama' => 'required',
+            'email' => 'required',
+            'no_tlp' => 'required',
+        ]);
+
+        $user = User::where('username', $username)->first();
+        if ($user == null) {
+            return back()->withErrors(['err_msg' => 'Data Mahasiswa tidak ditemukan!']);
+        } else {
+            if ($tipe == 'mahasiswa') {
+                $user->update([
+                    'username' => $request->username,
+                    'id_prodi' => $request->id_prodi,
+                    'nama' => $request->nama,
+                    'alamat' => $request->alamat,
+                    'email' => $request->email,
+                    'no_tlp' => $request->no_tlp,
+                    'status' => $request->status
+                ]);
+                session()->flash('success', 'Mahasiswa berhasil diubah');
+                return redirect()->route('indexUser', ['tipe' => 'mahasiswa']);
+            }
+            if ($tipe == 'kaprodi') {
+                pass;
+            }
+            if ($tipe == 'tu') {
+                pass;
+            }
+        }
+
+
     }
 
     /**
