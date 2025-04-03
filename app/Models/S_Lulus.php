@@ -17,10 +17,7 @@ class S_Lulus extends Model
     protected $fillable = [
         'id',
         'nrp',
-        'nama',
-        'semester',
-        'alamat',
-        'keperluan',
+        'tanggal_lulus',
         'status',
         'file'
     ];

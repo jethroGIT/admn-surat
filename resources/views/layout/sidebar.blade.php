@@ -71,7 +71,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
+                        <a href="{{ route('surat-lulus') }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
                             <i class="bi bi-file-check mr-2"></i>
                             Surat Keterangan Lulus
                         </a>

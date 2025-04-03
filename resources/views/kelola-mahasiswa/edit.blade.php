@@ -18,9 +18,9 @@
                 <select id="id_prodi" name="id_prodi" required
                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     <option value="">Pilih Program Studi</option>
-                    <option value="0" {{ $mahasiswa->id_prodi == '0' ? 'selected' : '' }}>Teknik Informatika</option>
-                    <option value="1" {{ $mahasiswa->id_prodi == '1' ? 'selected' : '' }}>Sistem Informasi</option>
-                    <option value="2" {{ $mahasiswa->id_prodi == '2' ? 'selected' : '' }}>Magister Ilmu Komputer</option>
+                    <option value="1" {{ $mahasiswa->id_prodi == '1' ? 'selected' : '' }}>Teknik Informatika</option>
+                    <option value="2" {{ $mahasiswa->id_prodi == '2' ? 'selected' : '' }}>Sistem Informasi</option>
+                    <option value="3" {{ $mahasiswa->id_prodi == '3' ? 'selected' : '' }}>Magister Ilmu Komputer</option>
                 </select>
             </div>
 
@@ -69,24 +69,3 @@
     </div>
 @endsection
 
-
-
-@section('ExtraJS')
-    @if ($errors->any())
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                let errorMessages = `
-            @foreach ($errors->all() as $error)
-                {{ $error }}<br>
-            @endforeach
-            `;
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Terjadi Kesalahan!',
-                    html: errorMessages,
-                    showConfirmButton: true
-                });
-            });
-        </script>
-    @endif
-@endsection

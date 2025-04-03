@@ -1,21 +1,21 @@
 @extends('layout.layout')
-@section('title', 'Kelola Mahasiswa')
+@section('title', 'Kelola Kaprodi')
 
 @section('content')
     <div class="container mx-auto px-4 py-8">
         <!-- Header Section -->
         <div class="flex flex-col md:flex-row justify-between items-center mb-8">
             <div class="mb-4 md:mb-0">
-                <h1 class="text-3xl font-bold text-indigo-800">Kelola Data Mahasiswa</h1>
-                <p class="text-gray-600">Manajemen data mahasiswa terdaftar</p>
+                <h1 class="text-3xl font-bold text-indigo-800">Kelola Data Tata Usaha</h1>
+                <p class="text-gray-600">Manajemen data Tata Usaha</p>
             </div>
             
-            <a href="{{ route('createUser', ['tipe' => 'mahasiswa']) }}" 
+            <a href="{{ route('createUser', ['tipe' => 'tu']) }}" 
                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                 </svg>
-                Tambah Mahasiswa
+                Tambah Akun
             </a>
         </div>
 
@@ -31,7 +31,7 @@
                         </div>
                         <input type="text" name="search" value="{{ $id }}" 
                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500" 
-                               placeholder="Cari berdasarkan NRP...">
+                               placeholder="Cari berdasarkan NIP...">
                     </div>
                     <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition-colors">
                         Cari
@@ -48,14 +48,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <h3 class="mt-4 text-lg font-medium text-gray-900">Data tidak ditemukan</h3>
-                    <p class="mt-1 text-gray-500">Tidak ada data mahasiswa yang sesuai dengan pencarian Anda.</p>
+                    <p class="mt-1 text-gray-500">Tidak ada data user yang sesuai dengan pencarian Anda.</p>
                 </div>
             @else
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-indigo-50">
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-indigo-800 uppercase tracking-wider">NRP</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-indigo-800 uppercase tracking-wider">NIP</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-indigo-800 uppercase tracking-wider">Nama</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-indigo-800 uppercase tracking-wider">Prodi</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-indigo-800 uppercase tracking-wider">Status</th>
@@ -85,7 +85,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-4">
-                                            <a href="{{ route('showUser', ['tipe' => 'mahasiswa', 'username' => $user->username]) }}" 
+                                            <a href="{{ route('showUser', ['tipe' => 'tu', 'username' => $user->username]) }}" 
                                                class="text-indigo-600 hover:text-indigo-900 flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                                                     <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -94,7 +94,7 @@
                                                 Lihat
                                             </a>
                                             <form id="delete-form-{{ $user->username }}"
-                                                action="{{ route('destroyUser', ['tipe' => 'mahasiswa', 'username' => $user->username]) }}"
+                                                action="{{ route('destroyUser', ['tipe' => 'tu', 'username' => $user->username]) }}"
                                                 method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')

@@ -34,10 +34,35 @@
                 toast: true,
                 position: 'top-end',
                 icon: 'success',
-                title: 'Welcome!',
+                title: 'Berhasil!',
                 text: '{{ session('success') }}',
                 showConfirmButton: false,
-                timer: 3000
+                timer: 3000,
+                background: '#4CAF50',
+                iconColor: '#FFFFFF',
+                color: '#FFFFFF',
+                customClass: {
+                    popup: 'bg-green-600'
+                }
+            });
+        </script>
+    @endif
+
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let errorMessages = `
+                @foreach ($errors->all() as $error)
+                    {{ $error }}<br>
+                @endforeach
+                `;
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan!',
+                    html: errorMessages,
+                    showConfirmButton: true,
+                    confirmButtonColor: '#EF4444'
+                });
             });
         </script>
     @endif

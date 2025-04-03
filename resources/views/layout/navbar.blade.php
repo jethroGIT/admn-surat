@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="profile">Profil</a>
+                    <a class="nav-link" href="{{route('profile')}}">Profil</a>
                 </li>
                 <li class="nav-item">
                     <form action="{{url('/logout')}}" method="POST">
