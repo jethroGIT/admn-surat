@@ -21,4 +21,14 @@ class S_Lulus extends Model
         'status',
         'file'
     ];
+
+    public function getFileUrlAttribute()
+    {
+        return $this->file ? asset('storage/' . $this->file) : null;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'nrp', 'username'); // Pastikan 'nrp' ada di tabel S_LHS dan 'username' ada di tabel users
+    }
 }

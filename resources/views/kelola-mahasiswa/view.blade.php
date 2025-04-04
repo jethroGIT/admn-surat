@@ -2,7 +2,7 @@
 @section('title', 'Profil Mahasiswa')
 
 @section('content')
-    <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-gradient-to-br to-indigo-100 py-8 px-4 sm:px-6 lg:px-8">
         <!-- Changed container width to be more responsive -->
         <div class="mx-auto w-full max-w-2xl lg:max-w-4xl">
             <div class="bg-white rounded-xl shadow-2xl overflow-hidden">

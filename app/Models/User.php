@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Role;
 use App\Models\Prodi;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -39,5 +40,10 @@ class User extends Authenticatable
     public function prodi()
     {
         return $this->belongsTo(Prodi::class, 'id_prodi'); // Pastikan 'id_prodi' ada di tabel users
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role'); // Pastikan 'id_role' ada di tabel users
     }
 }

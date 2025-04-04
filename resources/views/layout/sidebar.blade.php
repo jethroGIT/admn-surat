@@ -19,38 +19,44 @@
         </li>
         
         <!-- Kelola Akun - Accordion -->
-        <li class="nav-item">
-            <div x-data="{ open: false }">
-                <button @click="open = !open" class="w-full flex items-center justify-between p-3 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 group">
-                    <div class="flex items-center">
-                        <i class="bi bi-people-fill mr-3 text-lg group-hover:text-blue-200"></i>
-                        <span class="font-medium">Kelola Akun</span>
-                    </div>
-                    <i class="bi bi-chevron-down transition-transform duration-200" :class="{ 'transform rotate-180': open }"></i>
-                </button>
-                
-                <ul x-show="open" x-collapse class="ml-8 mt-1 space-y-2">
-                    <li>
-                        <a href="{{ route('indexUser', ['tipe' => 'tu']) }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
-                            <i class="bi bi-person-vcard mr-2"></i>
-                            Akun TU
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('indexUser', ['tipe' => 'kaprodi']) }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
-                            <i class="bi bi-person-gear mr-2"></i>
-                            Akun Kaprodi
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('indexUser', ['tipe' => 'mahasiswa']) }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
-                            <i class="bi bi-person-video3 mr-2"></i>
-                            Akun Mahasiswa
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
+        @if (in_array(auth()->user()->role->role_name, ['admin', 'kaprodi', 'tu']))
+            <li class="nav-item">
+                <div x-data="{ open: false }">
+                    <button @click="open = !open" class="w-full flex items-center justify-between p-3 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 group">
+                        <div class="flex items-center">
+                            <i class="bi bi-people-fill mr-3 text-lg group-hover:text-blue-200"></i>
+                            <span class="font-medium">Kelola Akun</span>
+                        </div>
+                        <i class="bi bi-chevron-down transition-transform duration-200" :class="{ 'transform rotate-180': open }"></i>
+                    </button>
+
+                    <ul x-show="open" x-collapse class="ml-8 mt-1 space-y-2">
+                        @if (auth()->user()->role->role_name == 'admin')
+                            <li>
+                                <a href="{{ route('indexUser', ['tipe' => 'tu']) }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
+                                    <i class="bi bi-person-vcard mr-2"></i>
+                                    Akun TU
+                                </a>
+                            </li>
+                        @endif
+                        @if (auth()->user()->role->role_name == 'admin' || auth()->user()->role->role_name == 'tu')
+                            <li>
+                                <a href="{{ route('indexUser', ['tipe' => 'kaprodi']) }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
+                                    <i class="bi bi-person-gear mr-2"></i>
+                                    Akun Kaprodi
+                                </a>
+                            </li>
+                        @endif
+                        <li>
+                            <a href="{{ route('indexUser', ['tipe' => 'mahasiswa']) }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
+                                <i class="bi bi-person-video3 mr-2"></i>
+                                Akun Mahasiswa
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        @endif
         
         <!-- Kelola Surat - Accordion -->
         <li class="nav-item">

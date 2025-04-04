@@ -52,7 +52,7 @@
                                     <i class="fas fa-graduation-cap me-1"></i> Program Studi: {{ $suratLulus->user->prodi->nama_prodi }}
                                 </p>
                                 <p class="text-muted mb-0">
-                                    <i class="fas fa-calendar-alt me-1"></i> Tanggal Lulus: {{ \Carbon\Carbon::parse($suratLulus->tanggal_lulus)->format('d F Y') }}
+                                    <i class="fas fa-calendar-alt me-1"></i> Tanggal Lulus: {{ $suratLulus->tanggal_lulus }}
                                 </p>
                             </div>
                         </div>
@@ -80,59 +80,31 @@
                         <small class="text-muted">
                             <i class="fas fa-clock me-1"></i> Terakhir diperbarui: {{ $suratLulus->updated_at}}
                         </small>
-
-                        @if($suratLulus->file != null)
-                            <a href="{{ route('downloadSuratLulus', $suratLulus->id) }}" class="btn btn-sm btn-success float-end ms-2">
-                                <i class="fas fa-download me-1"></i> Download Surat
-                            </a>
-                        @endif
-                        
-                        @if (auth()->user()->role->role_name == 'admin' || auth()->user()->role->role_name == 'tu')
-                            @if($suratLulus->status == 'Disetujui' && $suratLulus->file == null)
-                                <form action="{{ route('uploadSuratLulus', $suratLulus->id) }}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="file" class="form-label">Upload Surat Kelulusan</label>
-                                        <input class="form-control form-control-sm @error('file') is-invalid @enderror" 
-                                               id="file" name="file" type="file" accept=".pdf">
-
-                                        <div class="form-text">Format: PDF, Ukuran maksimal: 2MB</div>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-
-                                        <button type="submit" class="btn btn-sm btn-primary">
-                                            <i class="fas fa-upload me-1"></i> Upload
-                                        </button>
-                                    </div>
-                                </form>
-                            @endif
-                        @endif
-
+                        <button class="btn btn-sm btn-primary float-end">
+                            <i class="fas fa-print me-1"></i> Upload Surat
+                        </button>
                     </div>
                 </div>
             </div>
 
-            @if (auth()->user()->role->role_name == 'admin' || auth()->user()->role->role_name == 'kaprodi')
-                <div class="col-lg-4">
-                    <!-- Approval Actions -->
-                    <div class="card mb-4">
-                        <form method="POST" action="{{ route('updateSuratLulus', $suratLulus->id) }}">
-                            @csrf
-                            <div class="card-header bg-primary text-white">
-                                <i class="fas fa-clipboard-check me-2"></i>Persetujuan Kelulusan
-                            </div>
-                            <div class="card-body">
-                                <button type="submit" value="Disetujui" name="status" class="btn btn-success w-100 mb-3 py-2">
-                                    <i class="fas fa-check-circle me-1"></i> Disetujui
-                                </button>
-                                <button type="submit" value="Ditolak" name="status" class="btn btn-danger w-100 py-2">
-                                    <i class="fas fa-times-circle me-1"></i> Ditolak
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+            <div class="col-lg-4">
+                <!-- Approval Actions -->
+                <div class="card mb-4">
+                    <form method="POST" action="{{ route('updateSuratLulus', $suratLulus->id) }}">
+                        @csrf
+                        <div class="card-header bg-primary text-white">
+                            <i class="fas fa-clipboard-check me-2"></i>Persetujuan Kelulusan
+                        </div>
+                        <div class="card-body">
+                            <button type="submit" value="Disetujui" name="status" class="btn btn-success w-100 mb-3 py-2">
+                                <i class="fas fa-check-circle me-1"></i> Disetujui
+                            </button>
+                            <button type="submit" value="Ditolak" name="status" class="btn btn-danger w-100 py-2">
+                                <i class="fas fa-times-circle me-1"></i> Ditolak
+                            </button>
+                        </div>
                 </div>
-            @endif   
+            </div>
         </div>
     </div>
 @endsection

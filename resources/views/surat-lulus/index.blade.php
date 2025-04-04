@@ -3,48 +3,53 @@
 
 @section('content')
     <div class="container mx-auto px-4 py-8">
-        <!-- Header Section -->
-        <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-            <div class="mb-4 md:mb-0">
-                <h1 class="text-3xl font-bold text-indigo-800">Kelola Data Surat Lulus</h1>
-                <p class="text-gray-600">Manajemen data Surat Keterangan Lulus</p>
-            </div>
-
-            <a href="{{ route('createSuratLulus') }}"
-                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                        clip-rule="evenodd" />
-                </svg>
-                Tambah Surat
-            </a>
-        </div>
-
-        <!-- Search and Filter Section -->
-        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-            <form method="GET">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex-grow relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <input type="text" name="search" value="{{ request('search') }}"
-                            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500"
-                            placeholder="Cari berdasarkan NRP...">
-                    </div>
-                    <button type="submit"
-                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition-colors">
-                        Cari
-                    </button>
+        @if (in_array(auth()->user()->role->role_name, ['admin', 'kaprodi', 'tu']))
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-3xl font-bold text-indigo-800">Kelola Data Surat Lulus</h1>
+                    <p class="text-gray-600">Manajemen data Surat Keterangan Lulus</p>
                 </div>
-            </form>
-        </div>
+
+                @if (auth()->user()->role->role_name == 'admin')
+                    <a href="{{ route('createSuratLulus') }}"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Tambah Surat
+                    </a>
+                @endif
+            </div>
+            
+            <!-- Search and Filter Section -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                <form method="GET">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-grow relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500"
+                                placeholder="Cari berdasarkan NRP...">
+                        </div>
+                        <button type="submit"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition-colors">
+                            Cari
+                        </button>
+                    </div>
+                </form>
+            </div>
+        @endif
+
 
         <!-- Letter Table Section -->
         <div class="bg-white rounded-xl shadow-md overflow-hidden">
@@ -128,31 +133,25 @@
                                                 </svg>
                                                 Lihat
                                             </a>
-                                            <a href="{{ route('editSuratLulus', $surat->id) }}"
-                                                class="text-indigo-600 hover:text-indigo-900 flex items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1"
-                                                    viewBox="0 0 20 20" fill="currentColor">
-                                                    <path
-                                                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                                                </svg>
-                                                Edit
-                                            </a>
-                                            <form id="delete-form-{{ $surat->id }}"
-                                                action="{{ route('destroySuratLulus', $surat->id) }}" method="POST"
-                                                class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" onclick="confirmDelete('{{ $surat->id }}')"
-                                                    class="text-red-600 hover:text-red-900 flex items-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1"
-                                                        viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd"
-                                                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                    Hapus
-                                                </button>
-                                            </form>
+
+                                            @if (auth()->user()->role->role_name == 'admin')
+                                                <form id="delete-form-{{ $surat->id }}"
+                                                    action="{{ route('destroySuratLulus', $surat->id) }}" method="POST"
+                                                    class="inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" onclick="confirmDelete('{{ $surat->id }}')"
+                                                        class="text-red-600 hover:text-red-900 flex items-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1"
+                                                            viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd"
+                                                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                                clip-rule="evenodd" />
+                                                        </svg>
+                                                        Hapus
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

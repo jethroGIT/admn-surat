@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfilController;
@@ -33,9 +34,10 @@ Route::get('/dashboard', function(){
 
 // Route User
 Route::middleware(['auth'])->group(function () {
-
+    // Routes Profile
     Route::get('/profile', [ProfilController::class, 'index'])->name('profile');
 
+    // Routes User
     Route::middleware(['userAkses:0,1,2'])->group(function () {
         Route::get('kelola-user/{tipe}', [UserController::class, 'index'])->name('indexUser');
         Route::get('kelola-user/{tipe}/{username}/view', [UserController::class, 'show'])->name('showUser');
@@ -48,13 +50,37 @@ Route::middleware(['auth'])->group(function () {
         Route::post('kelola-user/{tipe}/{username}/update', [UserController::class, 'update'])->name('updateUser');
         Route::delete('kelola-user/{tipe}/{username}/destroy', [UserController::class, 'destroy'])->name('destroyUser');
     });
+
+    //Routes Surat Keterangan Lulus
+    Route::get('/surat-lulus', [SLulusController::class, 'index'])->name('surat-lulus');
+    
+    Route::middleware(['userAkses:0,3'])->group(function () {
+        Route::get('/surat-lulus/create', [SLulusController::class, 'create'])->name('createSuratLulus');
+        Route::post('/surat-lulus/store', [SLulusController::class, 'store'])->name('storeSuratLulus');
+    });
+
+    Route::middleware(['userAkses:0,1'])->group(function () { 
+        Route::post('/surat-lulus/{id}/update', [SLulusController::class, 'update'])->name('updateSuratLulus');
+    });
+    
+    Route::middleware(['userAkses:0'])->group(function () {
+        Route::delete('/surat-lulus/{id}/destroy', [SLulusController::class, 'destroy'])->name('destroySuratLulus');
+    });
+    
+    Route::middleware(['userAkses:0,2'])->group(function () {
+        Route::post('/surat-lulus/{id}/upload', [SLulusController::class, 'upload'])->name('uploadSuratLulus');
+    });
+
+    Route::get('/surat-lulus/{id}/view', [SLulusController::class, 'show'])->name('showSuratLulus');
+    Route::get('/surat-lulus/{id}/download', [SLulusController::class, 'download'])->name('downloadSuratLulus');
+
+    
 });
 
-Route::get('/surat-lulus', [SLulusController::class, 'index'])->name('surat-lulus');
-Route::get('/surat-lulus/create', [SLulusController::class, 'create'])->name('createSuratLulus');
-Route::post('/surat-lulus/store', [SLulusController::class, 'store'])->name('storeSuratLulus');
-Route::get('/surat-lulus/{id}/edit', [SLulusController::class, 'edit'])->name('editSuratLulus');
-Route::post('/surat-lulus/{id}/update', [SLulusController::class, 'update'])->name('updateSuratLulus');
-Route::delete('/surat-lulus/{id}/destroy', [SLulusController::class, 'destroy'])->name('destroySuratLulus');
-Route::get('/surat-lulus/{id}/view', [SLulusController::class, 'show'])->name('showSuratLulus');
 
+// Route::get('/test', function () {
+//     return Storage::disk('public')->url('a.pdf');
+//     return Storage::disk('public')->get('a.txt');
+// });
+
+Route::get('/reset-sLulus', [SLulusController::class, 'resetIncrement'])->name('resetSuratLulus');

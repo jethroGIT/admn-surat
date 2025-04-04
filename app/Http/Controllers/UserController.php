@@ -182,7 +182,6 @@ class UserController extends Controller
         }
 
         $this->checkProdiAccess($user->id_prodi);
-
         
         if ($tipe == 'kaprodi') {
             $kaprodi = User::where('username', $username)->with('prodi')->first();

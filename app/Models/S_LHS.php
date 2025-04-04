@@ -22,4 +22,9 @@ class S_LHS extends Model
         'status',
         'file'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'nrp', 'username'); // Pastikan 'nrp' ada di tabel S_LHS dan 'username' ada di tabel users
+    }
 }
