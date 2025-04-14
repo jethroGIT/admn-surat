@@ -11,21 +11,15 @@ class S_Lulus extends Model
 
     protected $table = 'S_Lulus';
     protected $primaryKey = 'id';
-    protected $keyType = 'int';
-    // public $incrementing = 'false';
+    protected $keyType = 'string';
+    public $incrementing = 'false';
 
     protected $fillable = [
-        'id',
         'nrp',
         'tanggal_lulus',
         'status',
         'file'
     ];
-
-    public function getFileUrlAttribute()
-    {
-        return $this->file ? asset('storage/' . $this->file) : null;
-    }
 
     public function user()
     {

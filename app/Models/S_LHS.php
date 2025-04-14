@@ -11,13 +11,11 @@ class S_LHS extends Model
 
     protected $table = 'S_LHS';
     protected $primaryKey = 'id';
-    protected $keyType = 'int';
-    // public $incrementing = 'false';
+    protected $keyType = 'string';
+    public $incrementing = 'false';
 
     protected $fillable = [
-        'id',
         'nrp',
-        'nama',
         'keperluan',
         'status',
         'file'

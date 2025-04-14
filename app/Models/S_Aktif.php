@@ -11,15 +11,20 @@ class S_Aktif extends Model
 
     protected $table = 'S_Aktif';
     protected $primaryKey = 'id';
-    protected $keyType = 'int';
-    // public $incrementing = 'false';
+    protected $keyType = 'string';
+    public $incrementing = 'false';
 
     protected $fillable = [
-        'id',
         'nrp',
-        'nama',
-        'tanggal_lulus',
+        'semester',
+        'alamat',
+        'keperluan',
         'status',
         'file'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'nrp', 'username'); // Pastikan 'nrp' ada di tabel S_LHS dan 'username' ada di tabel users
+    }
 }

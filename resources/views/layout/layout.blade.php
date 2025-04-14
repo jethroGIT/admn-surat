@@ -29,7 +29,7 @@
     <div class="main-content ">
         @yield('content')
     </div>
-
+    
     @if (session('success'))
         <script>
             Swal.fire({

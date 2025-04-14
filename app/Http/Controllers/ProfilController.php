@@ -52,9 +52,31 @@ class ProfilController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        $currentUser = Auth::user();
+
+        $currentUser->update([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'email' => $request->email,
+            'no_tlp' => $request->no_tlp,
+        ]);
+
+        session()->flash('success', 'Profil berhasil diperbarui');
+        return redirect()->route('profile');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $currentUser = Auth::user();
+
+        $currentUser->update([
+            'password' => bcrypt($request->password),
+        ]);
+
+        session()->flash('success', 'Profil berhasil diperbarui');
+        return redirect()->route('profile');
     }
 
     /**

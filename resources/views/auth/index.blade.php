@@ -61,7 +61,6 @@
                             name="password" 
                             placeholder="Enter your password" 
                             class="pl-10 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent input-focus transition duration-200"
-                            required
                         >
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
                             <i class="fas fa-eye-slash text-gray-400 cursor-pointer toggle-password"></i>

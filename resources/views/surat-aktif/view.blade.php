@@ -40,19 +40,25 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-4">
                             <div class="flex-shrink-0">
-                                <img src="https://ui-avatars.com/api/?name={{ $suratLulus->user->nama }}&size=80&background=random"
+                                <img src="https://ui-avatars.com/api/?name={{ $suratAktif->user->nama }}&size=80&background=random"
                                     class="rounded-circle" alt="Profile">
                             </div>
                             <div class="flex-grow-1 ms-4">
-                                <h4 class="mb-1">{{ $suratLulus->user->nama }}</h4>
+                                <h4 class="mb-1">{{ $suratAktif->user->nama }}</h4>
                                 <p class="text-muted mb-1">
-                                    <i class="fas fa-id-card me-1"></i> NRP: {{ $suratLulus->nrp }}
+                                    <i class="fas fa-id-card me-1"></i> NRP: {{ $suratAktif->nrp }}
                                 </p>
                                 <p class="text-muted mb-1">
-                                    <i class="fas fa-graduation-cap me-1"></i> Program Studi: {{ $suratLulus->user->prodi->nama_prodi }}
+                                    <i class="fas fa-graduation-cap me-1"></i> Program Studi: {{ $suratAktif->user->prodi->nama_prodi }}
                                 </p>
-                                <p class="text-muted mb-0">
-                                    <i class="fas fa-calendar-alt me-1"></i> Tanggal Lulus: {{ \Carbon\Carbon::parse($suratLulus->tanggal_lulus)->format('d F Y') }}
+                                <p class="text-muted mb-1">
+                                    <i class="fas fa-calendar-alt me-1"></i> Semester: {{ $suratAktif->semester }}
+                                </p>
+                                <p class="text-muted mb-1">
+                                    <i class="fas fa-users me-1"></i> Alamat: {{ $suratAktif->alamat }}
+                                </p>
+                                <p class="text-muted mb-1">
+                                    <i class="fas fa-info-circle me-1"></i> Keperluan: {{ $suratAktif->keperluan }}
                                 </p>
                             </div>
                         </div>
@@ -63,7 +69,7 @@
                                     <h5 class="alert-heading mb-2">
                                         <i class="fas fa-check-circle me-2"></i>Status Pengajuan
                                     </h5>
-                                    <p class="mb-0">{{ $suratLulus->status }}</p>
+                                    <p class="mb-0">{{ $suratAktif->status }}</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -71,35 +77,34 @@
                                     <h5 class="alert-heading mb-2">
                                         <i class="fas fa-file-alt me-2"></i>No. Pengajuan
                                     </h5>
-                                    <p class="mb-0">{{ $suratLulus->id }}</p>
+                                    <p class="mb-0">{{ $suratAktif->id }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer bg-light">
                         <small class="text-muted">
-                            <i class="fas fa-clock me-1"></i> Terakhir diperbarui: {{ $suratLulus->updated_at}}
+                            <i class="fas fa-clock me-1"></i> Terakhir diperbarui: {{ $suratAktif->updated_at }}
                         </small>
 
-                        @if($suratLulus->file != null)
-                            <a href="{{ route('downloadSuratLulus', $suratLulus->id) }}" class="btn btn-sm btn-success float-end ms-2">
+                        @if($suratAktif->file != null)
+                            <a href="{{ route('downloadSuratAktif', $suratAktif->id) }}" class="btn btn-sm btn-success float-end ms-2">
                                 <i class="fas fa-download me-1"></i> Download Surat
                             </a>
                         @endif
                         
                         @if (auth()->user()->role->role_name == 'admin' || auth()->user()->role->role_name == 'tu')
-                            @if($suratLulus->status == 'Disetujui' && $suratLulus->file == null)
-                                <form action="{{ route('uploadSuratLulus', $suratLulus->id) }}" method="post" enctype="multipart/form-data">
+                            @if($suratAktif->status == 'Disetujui' && $suratAktif->file == null)
+                                <form action="{{ route('uploadSuratAktif', $suratAktif->id) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="file" class="form-label">Upload Surat Kelulusan</label>
+                                        <label for="file" class="form-label">Upload Surat Keterangan Aktif</label>
                                         <input class="form-control form-control-sm @error('file') is-invalid @enderror" 
                                                id="file" name="file" type="file" accept=".pdf">
 
                                         <div class="form-text">Format: PDF, Ukuran maksimal: 2MB</div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
-
                                         <button type="submit" class="btn btn-sm btn-primary">
                                             <i class="fas fa-upload me-1"></i> Upload
                                         </button>
@@ -107,7 +112,6 @@
                                 </form>
                             @endif
                         @endif
-
                     </div>
                 </div>
             </div>
@@ -116,7 +120,7 @@
                 <div class="col-lg-4">
                     <!-- Approval Actions -->
                     <div class="card mb-4">
-                        <form method="POST" action="{{ route('updateSuratLulus', $suratLulus->id) }}">
+                        <form method="POST" action="{{ route('updateSuratAktif', $suratAktif->id) }}">
                             @csrf
                             <div class="card-header bg-primary text-white">
                                 <i class="fas fa-clipboard-check me-2"></i>Persetujuan Kelulusan

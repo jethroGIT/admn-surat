@@ -1,164 +1,77 @@
 @extends('layout.layout')
-@section('title', 'Profil User')
-
-@section('ExtraCSS')
-<style>
-    .profile-card {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-    .profile-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    }
-    .profile-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 30px 20px;
-        text-align: center;
-    }
-    .profile-avatar {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        border: 5px solid white;
-        object-fit: cover;
-        margin-bottom: 15px;
-        background-color: #f8f9fa;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 48px;
-        color: #764ba2;
-    }
-    .profile-body {
-        padding: 30px;
-    }
-    .profile-info {
-        margin-bottom: 25px;
-    }
-    .profile-info h5 {
-        color: #6c757d;
-        margin-bottom: 5px;
-        font-weight: 500;
-    }
-    .profile-info p {
-        font-size: 18px;
-        margin-bottom: 0;
-        color: #343a40;
-    }
-    .badge-status {
-        font-size: 14px;
-        padding: 5px 15px;
-        border-radius: 20px;
-    }
-    .status-active {
-        background-color: #d4edda;
-        color: #155724;
-    }
-    .status-inactive {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-    .section-title {
-        border-bottom: 2px solid #e9ecef;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-        color: #495057;
-    }
-</style>
-@endsection
+@section('title', 'Profile User')
 
 @section('content')
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="profile-card">
-                <div class="profile-header">
-                    <div class="profile-avatar">
-                        {{ strtoupper(substr($user->nama, 0, 1)) }}
-                    </div>
-                    <h2>{{ $user->nama }}</h2>
-                    <p class="mb-0">{{ $user->prodi->nama_prodi }}</p>
-                </div>
-                
-                <div class="profile-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="profile-info">
-                                <h5>Username</h5>
-                                <p>{{ $user->username }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="profile-info">
-                                <h5>Role</h5>
-                                <p>
-                                    @if($user->id_role == 0)
-                                        Administrator
-                                    @elseif($user->id_role == 1)
-                                        Kepala Program Studi
-                                    @elseif($user->id_role == 2)
-                                        Tata Usaha
-                                    @elseif($user->id_role == 3)
-                                        Mahasiswa
-                                    @else
-                                        Lainnya
-                                    @endif
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h4 class="section-title mt-4">Informasi Kontak</h4>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="profile-info">
-                                <h5>Email</h5>
-                                <p>{{ $user->email }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="profile-info">
-                                <h5>Nomor Telepon</h5>
-                                <p>{{ $user->no_tlp ?? 'Belum diisi' }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="profile-info">
-                        <h5>Alamat</h5>
-                        <p>{{ $user->alamat ?? 'Belum diisi' }}</p>
-                    </div>
-                    
-                    <div class="profile-info">
-                        <h5>Status</h5>
-                        <span class="badge-status {{ $user->status == 'active' ? 'status-active' : 'status-inactive' }}">
-                            {{ ucfirst($user->status) }}
-                        </span>
-                    </div>
-                    
-                    <div class="text-center mt-4">
-                        <a href="{{ route('editUser', ['tipe' => 'user', 'username' => $user->username]) }}" 
-                           class="btn btn-primary px-4">
-                            <i class="fas fa-edit mr-2"></i>Edit Profil
-                        </a>
-                    </div>
-                </div>
+    <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-10">
+        <h2 class="text-2xl font-semibold text-center mb-6">Profile User</h2>
+        <form action="{{ route('updateProfile') }}" method="POST" class="space-y-4">
+            @csrf
+            <!-- NRP (username) - disabled -->
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700">NRP</label>
+                <input type="text" id="username" name="username" value="{{ $user->username }}" readonly
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100">
             </div>
-        </div>
-    </div>
-</div>
-@endsection
 
-@section('ExtraJS')
-<script>
-    // Anda bisa menambahkan JavaScript jika diperlukan
-    $(document).ready(function() {
-        console.log('Profil page loaded');
-    });
-</script>
+            <!-- Program Studi - disabled $user->id_prodi-->
+            <div>
+                <label for="id_prodi" class="block text-sm font-medium text-gray-700">Program Studi</label>
+                <input type="text" id="id_prodi" name="id_prodi" value="{{ $user->prodi->nama_prodi }}" readonly
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100">
+            </div>
+
+            <!-- Nama -->
+            <div>
+                <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
+                <input type="text" id="nama" name="nama" value="{{ old('nama', $user->nama) }}" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <!-- Alamat -->
+            <div>
+                <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat</label>
+                <input type="text" id="alamat" name="alamat" value="{{ old('alamat', $user->alamat) }}" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <!-- Nomor Telepon -->
+            <div>
+                <label for="no_tlp" class="block text-sm font-medium text-gray-700">Nomor Telepon</label>
+                <input type="tel" id="no_tlp" name="no_tlp" value="{{ old('no_tlp', $user->no_tlp) }}" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div class="flex justify-between mt-6">
+                <button type="button"
+                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-md"><a href="{{ url()->previous() }}">Kembali</a></button>
+                <button type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-md">Update Profile</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-10 mb-10">
+        <form action="{{ route('updatePassword') }}" method="POST" class="space-y-4">
+            @csrf
+            <!-- Password (opsional untuk diubah) -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password Baru (kosongkan jika tidak ingin mengubah):</label>
+                <input type="password" id="password" name="password"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                <p class="mt-1 text-sm text-gray-500">Minimal 8 karakter</p>
+            </div>
+
+            <div class="flex justify-between mt-6">
+                <button type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-md">Update Password</button>
+            </div>
+        </form>
+    </div>
 @endsection

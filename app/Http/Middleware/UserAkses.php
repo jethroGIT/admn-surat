@@ -25,7 +25,5 @@ class UserAkses
         else{
             return $next($request);
         }
-
-
     }
 }

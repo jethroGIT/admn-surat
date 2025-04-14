@@ -72,6 +72,7 @@ class SLulusController extends Controller
             'tanggal_lulus' => 'required|date',
         ]);
 
+        $currentUser = Auth::user();
         S_Lulus::create([
             'nrp' => $currentUser->username,
             'tanggal_lulus' => $request->tanggal_lulus,
@@ -94,7 +95,7 @@ class SLulusController extends Controller
         else {
             $this->checkProdiAccess($idFinder->user->id_prodi);
 
-            $suratLulus = S_Lulus::with('user.prodi')->find($id);
+            $suratLulus = S_Lulus::find($id);
             return view('surat-lulus.view', compact('suratLulus'));
         }
     }
@@ -104,7 +105,7 @@ class SLulusController extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**
@@ -139,6 +140,10 @@ class SLulusController extends Controller
         }
         else {
             $this->checkProdiAccess($idFinder->user->id_prodi);
+            
+            if ($idFinder->file && Storage::disk('public')->exists($idFinder->file)) {
+                Storage::disk('public')->delete($idFinder->file);
+            }
 
             $idFinder->delete();
             session()->flash('success', 'Data berhasil dihapus');

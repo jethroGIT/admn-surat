@@ -7,12 +7,12 @@
             <!-- Header Section -->
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <div class="mb-4 md:mb-0">
-                    <h1 class="text-3xl font-bold text-indigo-800">Kelola Data Surat Keterangan Lulus</h1>
-                    <p class="text-gray-600">Manajemen data Surat Keterangan Lulus</p>
+                    <h1 class="text-3xl font-bold text-indigo-800">Kelola Data Surat Pengantar Mata Kuliah</h1>
+                    <p class="text-gray-600">Manajemen data Surat Pengantar Mata Kuliah</p>
                 </div>
 
                 @if (auth()->user()->role->role_name == 'admin')
-                    <a href="{{ route('createSuratLulus') }}"
+                    <a href="{{ route('createSuratPengantar') }}"
                         class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
@@ -94,9 +94,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                         {{ $surat->id }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $surat->nrp }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ $surat->user->nama }}
-                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $surat->user->nama }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         @if ($surat->status === 'Disetujui')
                                             <span
@@ -122,7 +120,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-4">
-                                            <a href="{{ route('showSuratLulus', $surat->id) }}"
+                                            <a href="{{ route('showSuratPengantar', $surat->id) }}"
                                                 class="text-indigo-600 hover:text-indigo-900 flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1"
                                                     viewBox="0 0 20 20" fill="currentColor">
@@ -136,7 +134,7 @@
 
                                             @if (auth()->user()->role->role_name == 'admin')
                                                 <form id="delete-form-{{ $surat->id }}"
-                                                    action="{{ route('destroySuratLulus', $surat->id) }}" method="POST"
+                                                    action="{{ route('destroySuratPengantar', $surat->id) }}" method="POST"
                                                     class="inline">
                                                     @csrf
                                                     @method('DELETE')

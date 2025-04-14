@@ -64,14 +64,14 @@
                 <button @click="open = !open" class="w-full flex items-center justify-between p-3 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 group">
                     <div class="flex items-center">
                         <i class="bi bi-file-earmark-text-fill mr-3 text-lg group-hover:text-blue-200"></i>
-                        <span class="font-medium">Kelola Surat</span>
+                        <span class="font-medium">Form Surat</span>
                     </div>
                     <i class="bi bi-chevron-down transition-transform duration-200" :class="{ 'transform rotate-180': open }"></i>
                 </button>
                 
                 <ul x-show="open" x-collapse class="ml-8 mt-1 space-y-2">
                     <li>
-                        <a href="#" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
+                        <a href="{{ route('surat-aktif') }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
                             <i class="bi bi-file-text mr-2"></i>
                             Surat Keterangan Aktif
                         </a>
@@ -83,13 +83,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
+                        <a href="{{ route('surat-lhs') }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
                             <i class="bi bi-file-bar-graph mr-2"></i>
                             Surat LHS
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
+                        <a href="{{ route('surat-pengantar') }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
                             <i class="bi bi-file-earmark-arrow-up mr-2"></i>
                             Surat Pengantar
                         </a>
