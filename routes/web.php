@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SAktifController;
 use App\Http\Controllers\SLulusController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SPengantarController;
 
 /*
@@ -30,16 +31,9 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 
 
-Route::get('/dashboard2', function(){
-    return view ('dashboard');
-});
-
-
 // Route User
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function(){
-        return view ('dashboard.kaprodi');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Routes Profile
     Route::get('/profile', [ProfilController::class, 'index'])->name('profile');
@@ -61,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    //Routes Surat Keterangan Lulus
+    //Routes Surat
     Route::get('/surat-lulus', [SLulusController::class, 'index'])->name('surat-lulus');
     
     Route::middleware(['userAkses:0,3'])->group(function () {
@@ -115,6 +109,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/surat-aktif/{id}/upload', [SAktifController::class, 'upload'])->name('uploadSuratAktif');
     Route::get('/surat-aktif/{id}/download', [SAktifController::class, 'download'])->name('downloadSuratAktif');
 });
+
+
+Route::get('/registrasi-admin', function () {
+    return view('auth.registrasiAdmin');
+})->name('register');
 
 Route::get('/reset-sLulus', [SLulusController::class, 'resetIncrement'])->name('resetSuratLulus');
 Route::get('/reset-sLHS', [SLHSController::class, 'resetIncrement'])->name('resetSuratLHS');

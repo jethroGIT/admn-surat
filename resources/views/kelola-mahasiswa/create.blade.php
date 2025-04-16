@@ -18,16 +18,19 @@
                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
             </div>
 
-            <div>
-                <label for="id_prodi" class="block text-sm font-medium text-gray-700">Program Studi:</label>
-                <select id="id_prodi" name="id_prodi" required
-                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Pilih Program Studi</option>
-                    <option value="1" {{ old('id_prodi') == '1' ? 'selected' : '' }}>Teknik Informatika</option>
-                    <option value="2" {{ old('id_prodi') == '2' ? 'selected' : '' }}>Sistem Informasi</option>
-                    <option value="3" {{ old('id_prodi') == '3' ? 'selected' : '' }}>Magister Ilmu Komputer</option>
-                </select>
-            </div>
+            @if (auth()->user()->role == 'admin') {
+                <div>
+                    <label for="id_prodi" class="block text-sm font-medium text-gray-700">Program Studi:</label>
+                    <select id="id_prodi" name="id_prodi" required
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Pilih Program Studi</option>
+                        <option value="1" {{ old('id_prodi') == '1' ? 'selected' : '' }}>Teknik Informatika</option>
+                        <option value="2" {{ old('id_prodi') == '2' ? 'selected' : '' }}>Sistem Informasi</option>
+                        <option value="3" {{ old('id_prodi') == '3' ? 'selected' : '' }}>Magister Ilmu Komputer</option>
+                    </select>
+                </div>
+            }
+            @endif   
 
             <div>
                 <label for="nama" class="block text-sm font-medium text-gray-700">Nama:</label>

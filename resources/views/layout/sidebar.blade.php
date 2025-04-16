@@ -3,7 +3,7 @@
     <!-- Logo/Site Name -->
     <div class="p-4 flex items-center justify-center border-b border-blue-500">
         <div class="text-center">
-            <h4 class="text-white text-xl font-bold tracking-wider">Admin Panel</h4>
+            <img src="{{ asset('image/logo.png') }}" alt="">
             <p class="text-blue-200 text-xs mt-1">Management System</p>
         </div>
     </div>
@@ -19,7 +19,7 @@
         </li>
         
         <!-- Kelola Akun - Accordion -->
-        @if (in_array(auth()->user()->role->role_name, ['admin', 'kaprodi', 'tu']))
+        @if (in_array(auth()->user()->role->role_name, ['admin', 'tu']))
             <li class="nav-item">
                 <div x-data="{ open: false }">
                     <button @click="open = !open" class="w-full flex items-center justify-between p-3 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 group">
@@ -46,13 +46,13 @@
                                     Akun Kaprodi
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('indexUser', ['tipe' => 'mahasiswa']) }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
+                                    <i class="bi bi-person-video3 mr-2"></i>
+                                    Akun Mahasiswa
+                                </a>
+                            </li>
                         @endif
-                        <li>
-                            <a href="{{ route('indexUser', ['tipe' => 'mahasiswa']) }}" class="flex items-center p-2 text-blue-100 rounded hover:bg-blue-600 transition-colors duration-200">
-                                <i class="bi bi-person-video3 mr-2"></i>
-                                Akun Mahasiswa
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </li>

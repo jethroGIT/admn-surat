@@ -7,7 +7,7 @@
             <!-- Header Section -->
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <div class="mb-4 md:mb-0">
-                    <h1 class="text-3xl font-bold text-indigo-800">Kelola Data Surat Keterangan Aktif</h1>
+                    <h1 class="text-3xl font-bold text-indigo-800">Pengajuan Surat Keterangan Aktif</h1>
                     <p class="text-gray-600">Manajemen data Surat Keterangan Aktif</p>
                 </div>
 

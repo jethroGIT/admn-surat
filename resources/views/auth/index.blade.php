@@ -79,9 +79,6 @@
                         >
                         <label for="remember" class="ml-2 block text-sm text-gray-700">Remember me</label>
                     </div>
-                    <div>
-                        <a href="#" class="text-sm text-purple-600 hover:text-purple-500 font-medium">Forgot password?</a>
-                    </div>
                 </div>
                 
                 <!-- Submit Button -->
@@ -110,12 +107,6 @@
                     html: errorMessages,
                     showConfirmButton: true,
                     confirmButtonColor: '#7c3aed',
-                    // backdrop: `
-                    //     rgba(118, 75, 162, 0.4)
-                    //     url("https://sweetalert2.github.io/images/nyan-cat.gif")
-                    //     left top
-                    //     no-repeat
-                    // `
                 });
             });
         </script>

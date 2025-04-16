@@ -109,8 +109,9 @@ class UserController extends Controller
         $request->validate([
             'username' => 'required',
             'password' => 'required',
-            'id_prodi' => 'required',
+            // 'id_prodi' => 'required',
             'nama' => 'required',
+            'alamat' => 'required',
             'email' => 'required',
             'no_tlp' => 'required',
         ]);
@@ -120,18 +121,36 @@ class UserController extends Controller
             return back()->withErrors(['err_msg' => 'Data User sudah ada!'])->withInput();
         }
 
+        $currentUser = Auth::user();
+
         if ($tipe == 'kaprodi') {
-            User::create([
-                'username' => $request->username,
-                'password' => bcrypt($request->password),
-                'id_role' => 1,
-                'id_prodi' => $request->id_prodi,
-                'nama' => $request->nama,
-                'alamat' => $request->alamat,
-                'email' => $request->email,
-                'no_tlp' => $request->no_tlp,
-                'status' => 'Aktif',
-            ]);
+            if ($currentUser->id_role == 2) {
+                User::create([
+                    'username' => $request->username,
+                    'password' => bcrypt($request->password),
+                    'id_role' => 1,
+                    'id_prodi' => $currentUser->id_prodi,
+                    'nama' => $request->nama,
+                    'alamat' => $request->alamat,
+                    'email' => $request->email,
+                    'no_tlp' => $request->no_tlp,
+                    'status' => 'Aktif',
+                ]);
+            }
+            else {
+                User::create([
+                    'username' => $request->username,
+                    'password' => bcrypt($request->password),
+                    'id_role' => 1,
+                    'id_prodi' => $request->id_prodi,
+                    'nama' => $request->nama,
+                    'alamat' => $request->alamat,
+                    'email' => $request->email,
+                    'no_tlp' => $request->no_tlp,
+                    'status' => 'Aktif',
+                ]);
+            }
+
             session()->flash('success', 'Kaprodi berhasil ditambahkan');
             return redirect()->route('indexUser', ['tipe' => 'kaprodi']);
         }
@@ -151,20 +170,52 @@ class UserController extends Controller
             return redirect()->route('indexUser', ['tipe' => 'tu']);
         }
         elseif ($tipe == 'mahasiswa') {
+            if ($currentUser->id_role == 2) {
+                User::create([
+                    'username' => $request->username,
+                    'password' => bcrypt($request->password),
+                    'id_role' => 3,
+                    'id_prodi' => $currentUser->id_prodi,
+                    'nama' => $request->nama,
+                    'alamat' => $request->alamat,
+                    'email' => $request->email,
+                    'no_tlp' => $request->no_tlp,
+                    'status' => 'Aktif',
+                ]);
+            }
+            else {
+                User::create([
+                    'username' => $request->username,
+                    'password' => bcrypt($request->password),
+                    'id_role' => 3,
+                    'id_prodi' => $request->id_prodi,
+                    'nama' => $request->nama,
+                    'alamat' => $request->alamat,
+                    'email' => $request->email,
+                    'no_tlp' => $request->no_tlp,
+                    'status' => 'Aktif',
+                ]);
+            }
+
+            session()->flash('success', 'Mahasiswa berhasil ditambahkan');
+            return redirect()->route('indexUser', ['tipe' => 'mahasiswa']);
+            
+        }
+        elseif ($tipe == 'admin') {
             User::create([
                 'username' => $request->username,
                 'password' => bcrypt($request->password),
-                'id_role' => 3,
-                'id_prodi' => $request->id_prodi,
+                'id_role' => 0,
+                'id_prodi' => 0,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'email' => $request->email,
                 'no_tlp' => $request->no_tlp,
                 'status' => 'Aktif',
             ]);
-            session()->flash('success', 'Mahasiswa berhasil ditambahkan');
-            return redirect()->route('indexUser', ['tipe' => 'mahasiswa']);
-            
+            session()->flash('success', 'Admin berhasil ditambahkan');
+            return redirect()->route('login');
+
         }
         else {
             return back()->withErrors(['err_msg' => 'Tipe user tidak valid!']);

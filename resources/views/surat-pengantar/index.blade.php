@@ -7,7 +7,7 @@
             <!-- Header Section -->
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <div class="mb-4 md:mb-0">
-                    <h1 class="text-3xl font-bold text-indigo-800">Kelola Data Surat Pengantar Mata Kuliah</h1>
+                    <h1 class="text-3xl font-bold text-indigo-800">Pengantar Surat Pengantar Mata Kuliah</h1>
                     <p class="text-gray-600">Manajemen data Surat Pengantar Mata Kuliah</p>
                 </div>
 
