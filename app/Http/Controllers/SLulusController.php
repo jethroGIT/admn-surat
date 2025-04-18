@@ -39,12 +39,21 @@ class SLulusController extends Controller
         if ($currentUser->id_role == 0) {
             $query = S_Lulus::where('nrp', 'LIKE', '%' . $id . '%')->simplePaginate(10);
         }
-        elseif ($currentUser->id_role == 1 || $currentUser->id_role == 2) {
+        elseif ($currentUser->id_role == 1) {
             $usersSameProdi = User::where('id_prodi', $currentUser->id_prodi)
                              ->pluck('username');
 
-            $query = S_Lulus::whereIn('nrp', $usersSameProdi)
+            $query = S_Aktif::whereIn('nrp', $usersSameProdi)
                             ->where('nrp', 'LIKE', '%' . $id . '%')
+                            ->simplePaginate(10);
+        }
+        elseif ($currentUser->id_role == 2) {
+            $usersSameProdi = User::where('id_prodi', $currentUser->id_prodi)
+                             ->pluck('username');
+
+            $query = S_Aktif::whereIn('nrp', $usersSameProdi)
+                            ->where('nrp', 'LIKE', '%' . $id . '%')
+                            ->where('status', 'Disetujui')
                             ->simplePaginate(10);
         }
         elseif ($currentUser->id_role == 3) {

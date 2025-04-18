@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container mx-auto px-4 py-8">
-        @if (in_array(auth()->user()->role->role_name, ['admin', 'kaprodi', 'tu']))
+        @if (in_array(auth()->user()->role->role_name, ['admin', 'kaprodi', 'tu', 'mahasiswa']))
             <!-- Header Section -->
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <div class="mb-4 md:mb-0">

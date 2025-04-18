@@ -48,7 +48,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['userAkses:0,2'])->group(function () {
         Route::get('kelola-user/{tipe}/create', [UserController::class, 'create'])->name('createUser');
-        Route::post('kelola-user/{tipe}/store', [UserController::class, 'store'])->name('storeUser');
         Route::get('kelola-user/{tipe}/{username}/edit', [UserController::class, 'edit'])->name('editUser');
         Route::post('kelola-user/{tipe}/{username}/update', [UserController::class, 'update'])->name('updateUser');
         Route::delete('kelola-user/{tipe}/{username}/destroy', [UserController::class, 'destroy'])->name('destroyUser');
@@ -114,6 +113,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/registrasi-admin', function () {
     return view('auth.registrasiAdmin');
 })->name('register');
+
+Route::post('kelola-user/{tipe}/store', [UserController::class, 'store'])->name('storeUser');
+
 
 Route::get('/reset-sLulus', [SLulusController::class, 'resetIncrement'])->name('resetSuratLulus');
 Route::get('/reset-sLHS', [SLHSController::class, 'resetIncrement'])->name('resetSuratLHS');
