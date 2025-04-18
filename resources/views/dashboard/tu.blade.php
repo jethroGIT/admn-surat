@@ -76,12 +76,13 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal Pengajuan
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">File</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <!-- Data 1 -->
                     @foreach ($suratAktif as $suratA)
-                        @if ($suratA->status == 'Pengajuan')
+                        @if ($suratA->file == null)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $suratA->id }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $suratA->nrp }}</td>
@@ -101,6 +102,16 @@
                                         </span>
                                     @endif
                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    @if ($suratA->file)
+                                        <a href="{{ asset('storage/' . $suratA->file) }}" target="_blank"
+                                            class="text-indigo-600 hover:text-indigo-900">
+                                            Lihat File
+                                        </a>
+                                    @else
+                                        <span class="text-gray-400">Tidak ada file</span>
+                                    @endif
+                                </td>
                             </tr>
                         @endif
                     @endforeach
@@ -117,7 +128,7 @@
             <div class="p-4 border-t flex justify-between items-center">
                 <div class="text-sm text-gray-600 mt-2">
                     <span class="font-medium">{{ $totalSuratAktif }}</span>
-                    pengajuan belum diproses. Halaman ini hanya menampilkan
+                    pengajuan telah disetujui. Halaman ini hanya menampilkan
                     <span class="font-medium">1 sampai 5</span> data terbaru.
                 </div>
                 <a href="{{ route('surat-aktif') }}" class="px-3 py-1 border rounded-md">
@@ -143,12 +154,13 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal Pengajuan
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">File</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <!-- Data 1 -->
                     @foreach ($suratLulus as $suratL)
-                        @if ($suratL->status == 'Pengajuan')
+                        @if ($suratL->file == null)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $suratL->id }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $suratL->nrp }}</td>
@@ -166,6 +178,16 @@
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                             {{ $suratL->status }}
                                         </span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    @if ($suratL->file)
+                                        <a href="{{ asset('storage/' . $suratL->file) }}" target="_blank"
+                                            class="text-indigo-600 hover:text-indigo-900">
+                                            Lihat File
+                                        </a>
+                                    @else
+                                        <span class="text-gray-400">Tidak ada file</span>
                                     @endif
                                 </td>
                             </tr>
@@ -209,11 +231,12 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal Pengajuan
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">File</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($suratLHS as $suratLH)
-                        @if ($suratLH->status == 'Pengajuan')
+                        @if ($suratLH->file == null)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $suratLH->id }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $suratLH->nrp }}</td>
@@ -231,6 +254,16 @@
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                             {{ $suratLH->status }}
                                         </span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    @if ($suratLH->file)
+                                        <a href="{{ asset('storage/' . $suratLH->file) }}" target="_blank"
+                                            class="text-indigo-600 hover:text-indigo-900">
+                                            Lihat File
+                                        </a>
+                                    @else
+                                        <span class="text-gray-400">Tidak ada file</span>
                                     @endif
                                 </td>
                             </tr>
@@ -274,12 +307,13 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal Pengajuan
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">File</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <!-- Data 1 -->
                     @foreach ($suratPengantar as $suratP)
-                        @if ($suratP->status == 'Pengajuan')
+                        @if ($suratP == null)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $suratP->id }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $suratP->nrp }}</td>
@@ -297,6 +331,16 @@
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                             {{ $suratP->status }}
                                         </span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    @if ($suratP->file)
+                                        <a href="{{ asset('storage/' . $suratP->file) }}" target="_blank"
+                                            class="text-indigo-600 hover:text-indigo-900">
+                                            Lihat File
+                                        </a>
+                                    @else
+                                        <span class="text-gray-400">Tidak ada file</span>
                                     @endif
                                 </td>
                             </tr>

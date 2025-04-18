@@ -43,7 +43,7 @@ class SLulusController extends Controller
             $usersSameProdi = User::where('id_prodi', $currentUser->id_prodi)
                              ->pluck('username');
 
-            $query = S_Aktif::whereIn('nrp', $usersSameProdi)
+            $query = S_Lulus::whereIn('nrp', $usersSameProdi)
                             ->where('nrp', 'LIKE', '%' . $id . '%')
                             ->simplePaginate(10);
         }
@@ -51,7 +51,7 @@ class SLulusController extends Controller
             $usersSameProdi = User::where('id_prodi', $currentUser->id_prodi)
                              ->pluck('username');
 
-            $query = S_Aktif::whereIn('nrp', $usersSameProdi)
+            $query = S_Lulus::whereIn('nrp', $usersSameProdi)
                             ->where('nrp', 'LIKE', '%' . $id . '%')
                             ->where('status', 'Disetujui')
                             ->simplePaginate(10);

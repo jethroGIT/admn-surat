@@ -1,9 +1,9 @@
 <!-- resources/views/layout/sidebar.blade.php -->
-<div class="sidebar bg-gradient-to-b from-blue-600 to-blue-800 shadow-lg w-64 min-h-screen fixed transition-all duration-300 z-10 overflow-y-auto h-[calc(100vh-6rem)] hide-scrollbar">
+<div class="sidebar bg-gradient-to-b from-blue-600 to-blue-150 shadow-lg w-64 min-h-screen fixed transition-all duration-300 z-10 overflow-y-auto h-[calc(100vh-6rem)] hide-scrollbar">
     <!-- Logo/Site Name -->
     <div class="p-4 flex items-center justify-center border-b border-blue-500">
         <div class="text-center">
-            <img src="{{ asset('image/logo.png') }}" alt="">
+            <img src="{{ asset('image/logofakultas.png') }}" alt="">
             <p class="text-blue-200 text-xs mt-1">Management System</p>
         </div>
     </div>
