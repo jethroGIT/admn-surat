@@ -55,58 +55,60 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    //Routes Surat
+    //Routes Surat Lulus
     Route::get('/surat-lulus', [SLulusController::class, 'index'])->name('surat-lulus');
-    
+    //Routes Surat Laporan Hasil Studi
+    Route::get('/surat-lhs', [SLHSController::class, 'index'])->name('surat-lhs');
+    //Routes Surat Pengantar
+    Route::get('/surat-pengantar', [SPengantarController::class, 'index'])->name('surat-pengantar');
+    //Routes Surat Aktif
+    Route::get('/surat-aktif', [SAktifController::class, 'index'])->name('surat-aktif');
+
     Route::middleware(['userAkses:0,3'])->group(function () {
         Route::get('/surat-lulus/create', [SLulusController::class, 'create'])->name('createSuratLulus');
         Route::post('/surat-lulus/store', [SLulusController::class, 'store'])->name('storeSuratLulus');
+
+        Route::get('/surat-lhs/create', [SLHSController::class, 'create'])->name('createSuratLHS');
+        Route::post('/surat-lhs/store', [SLHSController::class, 'store'])->name('storeSuratLHS');
+
+        Route::get('/surat-pengantar/create', [SPengantarController::class, 'create'])->name('createSuratPengantar');
+        Route::post('/surat-pengantar/store', [SPengantarController::class, 'store'])->name('storeSuratPengantar');
+
+        Route::get('/surat-aktif/create', [SAktifController::class, 'create'])->name('createSuratAktif');
+        Route::post('/surat-aktif/store', [SAktifController::class, 'store'])->name('storeSuratAktif');
     });
 
-    Route::middleware(['userAkses:0,1'])->group(function () { 
+    Route::middleware(['userAkses:0,1,3'])->group(function () { 
         Route::post('/surat-lulus/{id}/update', [SLulusController::class, 'update'])->name('updateSuratLulus');
+        Route::post('/surat-lhs/{id}/update', [SLHSController::class, 'update'])->name('updateSuratLHS');
+        Route::post('/surat-pengantar/{id}/update', [SPengantarController::class, 'update'])->name('updateSuratPengantar');
+        Route::post('/surat-aktif/{id}/update', [SAktifController::class, 'update'])->name('updateSuratAktif');
     });
     
-    Route::middleware(['userAkses:0'])->group(function () {
+    Route::middleware(['userAkses:0,3'])->group(function () {
         Route::delete('/surat-lulus/{id}/destroy', [SLulusController::class, 'destroy'])->name('destroySuratLulus');
+        Route::delete('/surat-lhs/{id}/destroy', [SLHSController::class, 'destroy'])->name('destroySuratLHS');
+        Route::delete('/surat-pengantar/{id}/destroy', [SPengantarController::class, 'destroy'])->name('destroySuratPengantar');
+        Route::delete('/surat-aktif/{id}/destroy', [SAktifController::class, 'destroy'])->name('destroySuratAktif');
     });
     
     Route::middleware(['userAkses:0,2'])->group(function () {
         Route::post('/surat-lulus/{id}/upload', [SLulusController::class, 'upload'])->name('uploadSuratLulus');
+        Route::post('/surat-lhs/{id}/upload', [SLHSController::class, 'upload'])->name('uploadSuratLHS');
+        Route::post('/surat-pengantar/{id}/upload', [SPengantarController::class, 'upload'])->name('uploadSuratPengantar');
+        Route::post('/surat-aktif/{id}/upload', [SAktifController::class, 'upload'])->name('uploadSuratAktif');
     });
 
     Route::get('/surat-lulus/{id}/view', [SLulusController::class, 'show'])->name('showSuratLulus');
     Route::get('/surat-lulus/{id}/download', [SLulusController::class, 'download'])->name('downloadSuratLulus');
 
-
-    //Routes Surat Laporan Hasil Studi
-    Route::get('/surat-lhs', [SLHSController::class, 'index'])->name('surat-lhs');
-    Route::get('/surat-lhs/create', [SLHSController::class, 'create'])->name('createSuratLHS');
-    Route::post('/surat-lhs/store', [SLHSController::class, 'store'])->name('storeSuratLHS');
     Route::get('/surat-lhs/{id}/view', [SLHSController::class, 'show'])->name('showSuratLHS');
-    Route::post('/surat-lhs/{id}/update', [SLHSController::class, 'update'])->name('updateSuratLHS');
-    Route::delete('/surat-lhs/{id}/destroy', [SLHSController::class, 'destroy'])->name('destroySuratLHS');
-    Route::post('/surat-lhs/{id}/upload', [SLHSController::class, 'upload'])->name('uploadSuratLHS');
     Route::get('/surat-lhs/{id}/download', [SLHSController::class, 'download'])->name('downloadSuratLHS');
 
-    //Routes Surat Pengantar
-    Route::get('/surat-pengantar', [SPengantarController::class, 'index'])->name('surat-pengantar');
-    Route::get('/surat-pengantar/create', [SPengantarController::class, 'create'])->name('createSuratPengantar');
-    Route::post('/surat-pengantar/store', [SPengantarController::class, 'store'])->name('storeSuratPengantar');
     Route::get('/surat-pengantar/{id}/view', [SPengantarController::class, 'show'])->name('showSuratPengantar');
-    Route::post('/surat-pengantar/{id}/update', [SPengantarController::class, 'update'])->name('updateSuratPengantar');
-    Route::delete('/surat-pengantar/{id}/destroy', [SPengantarController::class, 'destroy'])->name('destroySuratPengantar');
-    Route::post('/surat-pengantar/{id}/upload', [SPengantarController::class, 'upload'])->name('uploadSuratPengantar');
     Route::get('/surat-pengantar/{id}/download', [SPengantarController::class, 'download'])->name('downloadSuratPengantar');
 
-    //Routes Surat Aktif
-    Route::get('/surat-aktif', [SAktifController::class, 'index'])->name('surat-aktif');
-    Route::get('/surat-aktif/create', [SAktifController::class, 'create'])->name('createSuratAktif');
-    Route::post('/surat-aktif/store', [SAktifController::class, 'store'])->name('storeSuratAktif');
     Route::get('/surat-aktif/{id}/view', [SAktifController::class, 'show'])->name('showSuratAktif');
-    Route::post('/surat-aktif/{id}/update', [SAktifController::class, 'update'])->name('updateSuratAktif');
-    Route::delete('/surat-aktif/{id}/destroy', [SAktifController::class, 'destroy'])->name('destroySuratAktif');
-    Route::post('/surat-aktif/{id}/upload', [SAktifController::class, 'upload'])->name('uploadSuratAktif');
     Route::get('/surat-aktif/{id}/download', [SAktifController::class, 'download'])->name('downloadSuratAktif');
 });
 
