@@ -55,34 +55,40 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    //Routes Surat Lulus
+    //Routes Index Surat 
     Route::get('/surat-lulus', [SLulusController::class, 'index'])->name('surat-lulus');
-    //Routes Surat Laporan Hasil Studi
     Route::get('/surat-lhs', [SLHSController::class, 'index'])->name('surat-lhs');
-    //Routes Surat Pengantar
     Route::get('/surat-pengantar', [SPengantarController::class, 'index'])->name('surat-pengantar');
-    //Routes Surat Aktif
     Route::get('/surat-aktif', [SAktifController::class, 'index'])->name('surat-aktif');
 
+    // Routes CRUD Surat
     Route::middleware(['userAkses:0,3'])->group(function () {
         Route::get('/surat-lulus/create', [SLulusController::class, 'create'])->name('createSuratLulus');
         Route::post('/surat-lulus/store', [SLulusController::class, 'store'])->name('storeSuratLulus');
-
+        Route::get('/surat-lulus/{id}/edit', [SLulusController::class, 'edit'])->name('editSuratLulus');
+        Route::post('/surat-lulus/{id}/update', [SLulusController::class, 'update'])->name('updateSuratLulus');
+        
         Route::get('/surat-lhs/create', [SLHSController::class, 'create'])->name('createSuratLHS');
         Route::post('/surat-lhs/store', [SLHSController::class, 'store'])->name('storeSuratLHS');
-
+        Route::get('/surat-lhs/{id}/edit', [SLHSController::class, 'edit'])->name('editSuratLHS');
+        Route::post('/surat-lhs/{id}/update', [SLHSController::class, 'update'])->name('updateSuratLHS');
+        
         Route::get('/surat-pengantar/create', [SPengantarController::class, 'create'])->name('createSuratPengantar');
         Route::post('/surat-pengantar/store', [SPengantarController::class, 'store'])->name('storeSuratPengantar');
+        Route::get('/surat-pengantar/{id}/edit', [SPengantarController::class, 'edit'])->name('editSuratPengantar');
+        Route::post('/surat-pengantar/{id}/update', [SPengantarController::class, 'update'])->name('updateSuratPengantar');
 
         Route::get('/surat-aktif/create', [SAktifController::class, 'create'])->name('createSuratAktif');
         Route::post('/surat-aktif/store', [SAktifController::class, 'store'])->name('storeSuratAktif');
+        Route::get('/surat-aktif/{id}/edit', [SAktifController::class, 'edit'])->name('editSuratAktif');
+        Route::post('/surat-aktif/{id}/update', [SAktifController::class, 'update'])->name('updateSuratAktif');
     });
 
-    Route::middleware(['userAkses:0,1,3'])->group(function () { 
-        Route::post('/surat-lulus/{id}/update', [SLulusController::class, 'update'])->name('updateSuratLulus');
-        Route::post('/surat-lhs/{id}/update', [SLHSController::class, 'update'])->name('updateSuratLHS');
-        Route::post('/surat-pengantar/{id}/update', [SPengantarController::class, 'update'])->name('updateSuratPengantar');
-        Route::post('/surat-aktif/{id}/update', [SAktifController::class, 'update'])->name('updateSuratAktif');
+    Route::middleware(['userAkses:0,1'])->group(function () { 
+        Route::post('/surat-lulus/{id}/update-status', [SLulusController::class, 'updateStatus'])->name('updateStatusSuratLulus');
+        Route::post('/surat-lhs/{id}/update-status', [SLHSController::class, 'updateStatus'])->name('updateStatusSuratLHS');
+        Route::post('/surat-pengantar/{id}/update-status', [SPengantarController::class, 'updateStatus'])->name('updateStatusSuratPengantar');
+        Route::post('/surat-aktif/{id}/update-status', [SAktifController::class, 'updateStatus'])->name('updateStatusSuratAktif');
     });
     
     Route::middleware(['userAkses:0,3'])->group(function () {

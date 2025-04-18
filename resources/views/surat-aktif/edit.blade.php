@@ -1,20 +1,18 @@
 @extends('layout.layout')
-@section('title', 'Pengajuan Surat')
+@section('title', 'Update Surat Keterangan Aktif')
 
 @section('content')
     <div class="container mx-auto px-4 py-8">
-        <!-- Container dengan lebar lebih besar -->
         <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-            <!-- Header Section -->
             <div class="bg-indigo-700 px-6 py-4">
-                <h2 class="text-2xl font-bold text-white">Pengajuan Surat Keterangan Aktif</h2>
-                <p class="text-indigo-100">Silakan isi form berikut untuk pengajuan surat keterangan akif</p>
+                <h2 class="text-2xl font-bold text-white">Update Surat Keterangan Aktif</h2>
+                <p class="text-indigo-100">Perbarui data surat keterangan aktif</p>
             </div>
 
             <!-- Form Content -->
             <div class="p-8">
                 <!-- Form Title -->
-                <form method="POST" action="{{ route('storeSuratAktif') }}">
+                <form action="{{ route('updateSuratAktif', $suratAktif->id) }}" method="POST" >
                     @csrf
                     <!-- Semester Field -->
                     <div class="mb-6">
@@ -26,9 +24,12 @@
                             name="semester" 
                             id="semester"
                             class="block w-full px-4 py-3 text-lg border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            required
                             placeholder="Contoh: Semester Genap 23/24"
-                            value="{{ old('semester') }}">
+                            value="{{ old('semester', $suratAktif->semester) }}"
+                            required>
+                        @error('semester')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 
                     <!-- Keperluan Field -->
@@ -41,17 +42,22 @@
                             id="keperluan"
                             rows="4"
                             class="block w-full px-4 py-3 text-lg border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            required
-                            placeholder="Masukkan alasan keperluan pembuatan surat">{{ old('keperluan') }}</textarea>
+                            placeholder="Masukkan alasan keperluan pembuatan surat"
+                            required>{{ old('keperluan', $suratAktif->keperluan) }}</textarea>
+                        @error('keperluan')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 
                     <!-- Submit Button -->
                     <div class="flex justify-end space-x-4 mt-8">
-                        <a href="{{ route('surat-aktif') }}" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 text-lg">
+                        <a href="{{ route('surat-aktif') }}" 
+                           class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 text-lg">
                             Batal
                         </a>
-                        <button type="submit" class="px-8 py-3 border border-transparent rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-lg">
-                            Ajukan Surat
+                        <button type="submit" 
+                                class="px-8 py-3 border border-transparent rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-lg">
+                            Update Surat
                         </button>
                     </div>
                 </form>

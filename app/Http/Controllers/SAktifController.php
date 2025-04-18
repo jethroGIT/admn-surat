@@ -108,7 +108,7 @@ class SAktifController extends Controller
         else {
             $this->checkProdiAccess($idFinder->user->id_prodi);
 
-            $suratAktif = S_Aktif::find($id);
+            $suratAktif = $idFinder;
             return view('surat-aktif.view', compact('suratAktif'));
         }
     }
@@ -116,15 +116,49 @@ class SAktifController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(S_Aktif $s_Aktif)
+    public function edit(Request $request, $id)
     {
-        //
+        $idFinder = S_Aktif::find($id);
+        if ($idFinder == null) {
+            return back()->withErrors(['err_msg' => 'Data tidak ditemukan!']);
+        }
+        else {
+            $this->checkProdiAccess($idFinder->user->id_prodi);
+
+            $suratAktif = $idFinder;
+            return view('surat-aktif.edit', compact('suratAktif'));
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    
+    public function update(Request $request, $id) 
+    {
+        $request->validate([
+            'semester' => 'required',
+            'keperluan' => 'required',
+        ]);
+        
+        $idFinder = S_Aktif::find($id);
+        if ($idFinder == null) {
+            return back()->withErrors(['err_msg' => 'Data tidak ditemukan!']);
+        }
+        else {
+            $this->checkProdiAccess($idFinder->user->id_prodi);
+            
+            $idFinder->update([
+                'semester' => $request->semester,
+                'keperluan' => $request->keperluan
+            ]);
+            
+            session()->flash('success', 'Data berhasil diperbarui');
+            return redirect()->route('surat-aktif');
+        }
+    }
+    
+    public function updateStatus(Request $request, $id)
     {
         $idFinder = S_Aktif::find($id);
         if ($idFinder == null) {
@@ -140,7 +174,7 @@ class SAktifController extends Controller
             return redirect()->route('surat-aktif');
         }
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
@@ -158,7 +192,7 @@ class SAktifController extends Controller
             }
             
             $idFinder->delete();
-            session()->flash('success', 'Data berhasil dihapus');
+            session()->flash('success', 'Status berhasil dihapus');
             return redirect()->route('surat-aktif');
         } 
     }

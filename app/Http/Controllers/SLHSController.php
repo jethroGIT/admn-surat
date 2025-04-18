@@ -86,7 +86,6 @@ class SLHSController extends Controller
             'nrp' => $currentUser->username,
             'keperluan' => $request->keperluan,
             'status' => 'Pengajuan',
-
         ]);
 
         session()->flash('success', 'Pengajuan Surat Berhasil Dibuat');
@@ -105,7 +104,7 @@ class SLHSController extends Controller
         else {
             $this->checkProdiAccess($idFinder->user->id_prodi);
 
-            $suratLHS = S_LHS::find($id);
+            $suratLHS = $idFinder;
             return view('surat-lhs.view', compact('suratLHS'));
         }
     }
@@ -113,9 +112,22 @@ class SLHSController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(S_LHS $s_LHS)
+    public function edit(Request $request, $id)
     {
-        //
+        $request->validate([
+            'keperluan' => 'required',
+        ]);
+        
+        $idFinder = S_LHS::find($id);
+        if ($idFinder == null) {
+            return back()->withErrors(['err_msg' => 'Data tidak ditemukan!']);
+        }
+        else {
+            $this->checkProdiAccess($idFinder->user->id_prodi);
+
+            $suratLHS = $idFinder;
+            return view('surat-lhs.edit', compact('suratLHS'));
+        }
     }
 
     /**
@@ -129,11 +141,29 @@ class SLHSController extends Controller
         }
         else {
             $this->checkProdiAccess($idFinder->user->id_prodi);
+            
+            $idFinder->update([
+                'keperluan' => $request->keperluan,
+            ]);
+            
+            session()->flash('success', 'Data berhasil diperbarui');
+            return redirect()->route('surat-lhs');
+        }
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $idFinder = S_LHS::find($id);
+        if ($idFinder == null) {
+            return back()->withErrors(['err_msg' => 'Data tidak ditemukan!']);
+        }
+        else {
+            $this->checkProdiAccess($idFinder->user->id_prodi);
 
             $idFinder->update([
                 'status' => $request->status,
             ]);
-            session()->flash('success', 'Data berhasil diubah');
+            session()->flash('success', 'Status berhasil diubah');
             return redirect()->route('surat-lhs');
         }
     }

@@ -104,7 +104,7 @@ class SLulusController extends Controller
         else {
             $this->checkProdiAccess($idFinder->user->id_prodi);
 
-            $suratLulus = S_Lulus::find($id);
+            $suratLulus = $idFinder;
             return view('surat-lulus.view', compact('suratLulus'));
         }
     }
@@ -112,15 +112,45 @@ class SLulusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
-    }
+        $idFinder = S_Lulus::find($id);
+        if ($idFinder == null) {
+            return back()->withErrors(['err_msg' => 'Data tidak ditemukan!']);
+        }
+        else {
+            $this->checkProdiAccess($idFinder->user->id_prodi);
 
+            $suratLulus = $idFinder;
+            return view('surat-lulus.edit', compact('suratLulus'));
+        }
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
+    {
+        $request->validate([
+            'tanggal_lulus' => 'required|date',
+        ]);
+        
+        $idFinder = S_Lulus::find($id);
+        if ($idFinder == null) {
+            return back()->withErrors(['err_msg' => 'Data tidak ditemukan!']);
+        }
+        else {
+            $this->checkProdiAccess($idFinder->user->id_prodi);
+            
+            $idFinder->update([
+                'tanggal_lulus' => $request->tanggal_lulus,
+            ]);
+            
+            session()->flash('success', 'Data berhasil diperbarui');
+            return redirect()->route('surat-lulus');
+        }
+    }
+
+    public function updateStatus(Request $request, $id)
     {
         $idFinder = S_Lulus::find($id);
         if ($idFinder == null) {
@@ -132,7 +162,7 @@ class SLulusController extends Controller
             $idFinder->update([
                 'status' => $request->status,
             ]);
-            session()->flash('success', 'Data berhasil diubah');
+            session()->flash('success', 'Status berhasil diubah');
             return redirect()->route('surat-lulus');
         }
     }

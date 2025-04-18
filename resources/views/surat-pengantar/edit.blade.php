@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Ajukan Surat Pengantar')
+@section('title', 'Pengajuan Surat Pengantar')
 
 @section('content')
     <div class="container mx-auto px-4 py-8">
@@ -14,7 +14,7 @@
             <!-- Form Content -->
             <div class="p-8">
                 <!-- Form Title -->
-                <form method="POST" action="{{ route('storeSuratPengantar') }}">
+                <form method="POST" action="{{ route('updateSuratPengantar', $suratPengantar->id) }}">
                     @csrf
                     <!-- Surat Ditujukan Kepada Field -->
                     <div class="mb-6">
@@ -28,7 +28,7 @@
                             class="block w-full px-4 py-3 text-lg border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                             required
                             placeholder="Contoh: Ibu Susi Susanti; Kepala Personalia PT. X; Jl. Cibogo no. 10 Bandung"
-                            value="{{ old('tujuan_surat') }}">
+                            value="{{ old('tujuan_surat', $suratPengantar->tujuan_surat) }}">
                         <p class="mt-1 text-gray-500">Informasikan secara lengkap nama, jabatan, nama perusahaan, dan alamat perusahaan</p>
                     </div>
                 
@@ -44,7 +44,7 @@
                             class="block w-full px-4 py-3 text-lg border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                             required
                             placeholder="Contoh: Proses Bisnis - IN255"
-                            value="{{ old('mata_kuliah') }}">
+                            value="{{ old('mata_kuliah', $suratPengantar->mata_kuliah) }}">
                     </div>
                 
                     <!-- Semester Field -->
@@ -59,7 +59,7 @@
                             class="block w-full px-4 py-3 text-lg border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                             required
                             placeholder="Contoh: Semester Genap 23/24"
-                            value="{{ old('semester') }}">
+                            value="{{ old('semester', $suratPengantar->semester) }}">
                     </div>
                 
                     <!-- Data Mahasiswa Field -->
@@ -73,7 +73,7 @@
                             rows="3"
                             class="block w-full px-4 py-3 text-lg border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                             required
-                            placeholder="Contoh: Mahasiswa 1 - 15720xx; Mahasiswa 2 - 15720xx">{{ old('data_mahasiswa') }}</textarea>
+                            placeholder="Contoh: Mahasiswa 1 - 15720xx; Mahasiswa 2 - 15720xx">{{ old('data_mahasiswa', $suratPengantar->data_mahasiswa) }}</textarea>
                         <p class="mt-1 text-gray-500">Informasikan nama dan NRP tiap mahasiswa</p>
                     </div>
                 
@@ -88,7 +88,7 @@
                             rows="4"
                             class="block w-full px-4 py-3 text-lg border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                             required
-                            placeholder="Masukkan alasan keperluan pembuatan surat">{{ old('keperluan') }}</textarea>
+                            placeholder="Masukkan alasan keperluan pembuatan surat">{{ old('keperluan', $suratPengantar->keperluan) }}</textarea>
                     </div>
                 
                     <!-- Topik Field -->
@@ -103,16 +103,16 @@
                             class="block w-full px-4 py-3 text-lg border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                             required
                             placeholder="Masukkan topik surat"
-                            value="{{ old('topik') }}">
+                            value="{{ old('topik', $suratPengantar->topik) }}">
                     </div>
                 
                     <!-- Submit Button -->
                     <div class="flex justify-end space-x-4 mt-8">
-                        <a href="{{ route('surat-lhs') }}" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 text-lg">
+                        <a href="{{ route('surat-pengantar') }}" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 text-lg">
                             Batal
                         </a>
                         <button type="submit" class="px-8 py-3 border border-transparent rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-lg">
-                            Ajukan Surat
+                            Update Surat
                         </button>
                     </div>
                 </form>

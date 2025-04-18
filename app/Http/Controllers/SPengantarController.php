@@ -122,15 +122,56 @@ class SPengantarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(S_Pengantar $s_Pengantar)
+    public function edit(Request $request, $id)
     {
-        //
+        $idFinder = S_Pengantar::find($id);
+        if ($idFinder == null) {
+            return back()->withErrors(['err_msg' => 'Data tidak ditemukan!']);
+        }
+        else {
+            $this->checkProdiAccess($idFinder->user->id_prodi);
+
+            $suratPengantar = $idFinder;
+            return view('surat-pengantar.edit', compact('suratPengantar'));
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
+    {
+        $request->validate([
+            'tujuan_surat' => 'required',
+            'mata_kuliah' => 'required',
+            'semester' => 'required',
+            'data_mahasiswa' => 'required',
+            'keperluan' => 'required',
+            'topik' => 'required',
+        ]);
+        
+        $idFinder = S_Pengantar::find($id);
+        if ($idFinder == null) {
+            return back()->withErrors(['err_msg' => 'Data tidak ditemukan!']);
+        }
+        else {
+            $this->checkProdiAccess($idFinder->user->id_prodi);
+                     
+            $idFinder->update([
+                'tujuan_surat' => $request->tujuan_surat,
+                'mata_kuliah' => $request->mata_kuliah,
+                'semester' => $request->semester,
+                'data_mahasiswa' => $request->data_mahasiswa,
+                'keperluan' => $request->keperluan,
+                'topik' => $request->topik,
+            ]);
+            
+            session()->flash('success', 'Data berhasil diperbarui');
+            return redirect()->route('surat-pengantar');
+        }
+    }
+
+    public function updateStatus(Request $request, $id)
     {
         $idFinder = S_Pengantar::find($id);
         if ($idFinder == null) {

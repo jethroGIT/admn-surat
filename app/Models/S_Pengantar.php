@@ -21,6 +21,8 @@ class S_Pengantar extends Model
         'mata_kuliah',
         'semester',
         'data_mahasiswa',
+        'keperluan',
+        'topik',
         'status',
         'file'
     ];
