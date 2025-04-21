@@ -12,9 +12,9 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        //
+        $prodis = Prodi::orderBy('id')->simplePaginate(5); 
+        return view('prodi.index', compact('prodis'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -28,7 +28,17 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_prodi' => 'required'
+        ]);
+    
+        Prodi::create([
+            'id' => 5,
+            'nama_prodi' => $request->nama_prodi,
+        ]);
+    
+        session()->flash('success', 'Prodi berhasil ditambahkan');
+        return redirect()->route('prodi');
     }
 
     /**
@@ -50,16 +60,33 @@ class ProdiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, prodi $prodi)
+    public function update(Request $request, $id)
     {
-        //
+        $idFinder = Prodi::find($id);
+        if ($idFinder == null) {
+            return back()->withErrors(['err_msg' => 'Data tidak ditemukan!']);
+        }
+        else {
+            $request->validate([
+                'nama_prodi' => 'required'
+            ]);
+        
+            $idFinder->update([
+                'nama_prodi' => $request->nama_prodi,
+            ]);
+        
+            session()->flash('success', 'Prodi berhasil diperbarui');
+            return redirect()->route('prodi');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(prodi $prodi)
+    public function destroy($id)
     {
-        //
+        Prodi::where('id', $id)->delete();
+        session()->flash('success', 'Prodi berhasil dihapus');
+        return redirect()->route('prodi');
     }
 }

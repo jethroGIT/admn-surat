@@ -127,8 +127,7 @@
         @else
             <div class="p-4 border-t flex justify-between items-center">
                 <div class="text-sm text-gray-600 mt-2">
-                    <span class="font-medium">{{ $totalSuratAktif }}</span>
-                    pengajuan telah disetujui. Halaman ini hanya menampilkan
+                    Halaman ini hanya menampilkan
                     <span class="font-medium">1 sampai 5</span> data terbaru.
                 </div>
                 <a href="{{ route('surat-aktif') }}" class="px-3 py-1 border rounded-md">
@@ -205,8 +204,7 @@
         @else
             <div class="p-4 border-t flex justify-between items-center">
                 <div class="text-sm text-gray-600 mt-2">
-                    <span class="font-medium">{{ $totalSuratLulus }}</span>
-                    pengajuan belum diproses. Halaman ini hanya menampilkan
+                    Halaman ini hanya menampilkan
                     <span class="font-medium">1 sampai 5</span> data terbaru.
                 </div>
                 <a href="{{ route('surat-lulus') }}" class="px-3 py-1 border rounded-md">
@@ -281,8 +279,7 @@
         @else
             <div class="p-4 border-t flex justify-between items-center">
                 <div class="text-sm text-gray-600 mt-2">
-                    <span class="font-medium">{{ $totalSuratLHS }}</span>
-                    pengajuan belum diproses. Halaman ini hanya menampilkan
+                    Halaman ini hanya menampilkan
                     <span class="font-medium">1 sampai 5</span> data terbaru.
                 </div>
                 <a href="{{ route('surat-lhs') }}" class="px-3 py-1 border rounded-md">
@@ -358,10 +355,9 @@
         @else
             <div class="p-4 border-t flex justify-between items-center">
                 <div class="text-sm text-gray-600 mt-2">
-                    <span class="font-medium">{{ $totalSuratPengantar }}</span>
-                    pengajuan belum diproses. Halaman ini hanya menampilkan
+                    Halaman ini hanya menampilkan
                     <span class="font-medium">1 sampai 5</span> data terbaru.
-                </div>
+                </div> 
                 <a href="{{ route('surat-lhs') }}" class="px-3 py-1 border rounded-md">
                     Lihat Selengkapnya
                 </a>

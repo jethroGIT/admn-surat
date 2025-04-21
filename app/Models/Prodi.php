@@ -12,7 +12,8 @@ class Prodi extends Model
     protected $table = 'prodi';
     protected $primaryKey = 'id';
     protected $keyType = 'int';
-    // public $incrementing = 'false';
+    public $incrementing = false;
+    public $timestamps = false;
 
     protected $fillable = [
         'id',

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SLHSController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SAktifController;
 use App\Http\Controllers\SLulusController;
@@ -116,15 +117,24 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/surat-aktif/{id}/view', [SAktifController::class, 'show'])->name('showSuratAktif');
     Route::get('/surat-aktif/{id}/download', [SAktifController::class, 'download'])->name('downloadSuratAktif');
+
+    // Routes Prodi
+    Route::middleware(['userAkses:0'])->group(function () {
+        Route::get('/prodi', [ProdiController::class, 'index'])->name('prodi');
+        Route::post('/prodi/store', [ProdiController::class, 'store'])->name('storeProdi');
+        Route::post('/prodi/{id}/update', [ProdiController::class, 'update'])->name('updateProdi');
+        Route::delete('/prodi/{id}/destroy', [ProdiController::class, 'destroy'])->name('destroyProdi');
+    });
 });
+
+
+
 
 
 Route::get('/registrasi-admin', function () {
     return view('auth.registrasiAdmin');
 })->name('register');
-
 Route::post('kelola-user/{tipe}/store', [UserController::class, 'store'])->name('storeUser');
-
 
 Route::get('/reset-sLulus', [SLulusController::class, 'resetIncrement'])->name('resetSuratLulus');
 Route::get('/reset-sLHS', [SLHSController::class, 'resetIncrement'])->name('resetSuratLHS');

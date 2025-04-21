@@ -5,7 +5,7 @@
     <div class="container mx-auto px-4 py-8">
         @if (in_array(auth()->user()->role->role_name, ['admin', 'kaprodi', 'tu', 'mahasiswa']))
             <!-- Header Section -->
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-1">
                 <div class="mb-4 md:mb-0">
                     <h1 class="text-3xl font-bold text-indigo-800">Pengajuan Surat Keterangan Aktif</h1>
                     <p class="text-gray-600">Manajemen data Surat Keterangan Aktif</p>
@@ -23,33 +23,94 @@
                     </a>
                 @endif
             </div>
-            
-            <!-- Search and Filter Section -->
-            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                <form method="GET">
-                    <div class="flex flex-col md:flex-row gap-4">
-                        <div class="flex-grow relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <input type="text" name="search" value="{{ request('search') }}"
-                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500"
-                                placeholder="Cari berdasarkan NRP...">
-                        </div>
-                        <button type="submit"
-                            class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition-colors">
-                            Cari
-                        </button>
-                    </div>
-                </form>
-            </div>
-        @endif
 
+            <!-- Search Section -->
+            @if (in_array(auth()->user()->role->role_name, ['admin', 'kaprodi', 'tu']))
+                <div class="bg-white rounded-xl shadow-md p-6 mb-4">
+                    <form method="GET">
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div class="flex-grow relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <input type="text" name="search" value="{{ request('search') }}"
+                                    class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="Cari berdasarkan NRP...">
+                            </div>
+                            <button type="submit"
+                                class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition-colors whitespace-nowrap">
+                                Cari
+                            </button>
+                            @if (request()->has('search'))
+                                <a href="{{ url()->current() }}"
+                                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-lg transition-colors flex items-center whitespace-nowrap">
+                                    Reset
+                                </a>
+                            @endif
+                        </div>
+                    </form>
+                </div>
+            @endif
+
+            @if (in_array(auth()->user()->role->role_name, ['admin', 'kaprodi', 'tu', 'mahasiswa']))
+                <!-- Filter Section -->
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Filter berdasarkan tanggal</h3>
+                    <form method="GET">
+                        <div class="flex flex-col md:flex-row gap-4 items-end">
+                            <!-- Month Filter -->
+                            <div class="w-full md:w-48">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Bulan</label>
+                                <select name="month"
+                                    class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option value="">Semua Bulan</option>
+                                    @foreach (range(1, 12) as $month)
+                                        <option value="{{ $month }}"
+                                            {{ request('month') == $month ? 'selected' : '' }}>
+                                            {{ DateTime::createFromFormat('!m', $month)->format('F') }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Year Filter -->
+                            <div class="w-full md:w-48">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Tahun</label>
+                                <select name="year"
+                                    class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option value="">Semua Tahun</option>
+                                    @foreach (range(date('Y'), date('Y') - 5, -1) as $year)
+                                        <option value="{{ $year }}"
+                                            {{ request('year') == $year ? 'selected' : '' }}>
+                                            {{ $year }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="flex gap-2 w-full md:w-auto">
+                                <button type="submit"
+                                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition-colors whitespace-nowrap">
+                                    Terapkan Filter
+                                </button>
+                                @if (request()->has('month') || request()->has('year'))
+                                    <a href="{{ url()->current() }}?{{ http_build_query(request()->except('month', 'year')) }}"
+                                        class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-lg transition-colors flex items-center whitespace-nowrap">
+                                        Reset Filter
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            @endif
+        @endif
 
         <!-- Letter Table Section -->
         <div class="bg-white rounded-xl shadow-md overflow-hidden">
@@ -94,7 +155,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                         {{ $surat->id }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $surat->nrp }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $surat->user->nama }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $surat->user->nama }}
+                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         @if ($surat->status === 'Disetujui')
                                             <span
@@ -132,15 +194,21 @@
                                                 Lihat
                                             </a>
 
-                                            <a href="{{ route('editSuratAktif', $surat->id) }}"
-                                                class="text-yellow-600 hover:text-yellow-900 flex items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                                                </svg>
-                                                Edit
-                                            </a>
+                                            @if (in_array(auth()->user()->role->role_name, ['admin', 'mahasiswa']))
+                                                @if ($surat->status == 'Pengajuan')
+                                                    <a href="{{ route('editSuratAktif', $surat->id) }}"
+                                                        class="text-yellow-600 hover:text-yellow-900 flex items-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1"
+                                                            viewBox="0 0 20 20" fill="currentColor">
+                                                            <path
+                                                                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                                        </svg>
+                                                        Edit
+                                                    </a>
+                                                @endif
+                                            @endif
 
-                                            @if (auth()->user()->role->role_name == 'admin')
+                                            @if (in_array(auth()->user()->role->role_name, ['admin', 'mahasiswa']))
                                                 <form id="delete-form-{{ $surat->id }}"
                                                     action="{{ route('destroySuratAktif', $surat->id) }}" method="POST"
                                                     class="inline">

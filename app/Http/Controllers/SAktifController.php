@@ -35,36 +35,69 @@ class SAktifController extends Controller
         $currentUser = Auth::user();
         $currentProdiId = $currentUser->id_prodi;
         $id = $request->search ?? '';
-
-        if ($currentUser->id_role == 0) {
-            $query = S_Aktif::where('nrp', 'LIKE', '%' . $id . '%')
-                            ->simplePaginate(10);
+        $month = $request->month ?? '';
+        $year = $request->year ?? '';
+    
+        if ($currentUser->id_role == 0) { // Admin
+            $query = S_Aktif::query()
+                        ->when($id, function($q) use ($id) {
+                            return $q->where('nrp', 'LIKE', '%' . $id . '%');
+                        })
+                        ->when($month, function($q) use ($month) {
+                            return $q->whereMonth('created_at', $month);
+                        })
+                        ->when($year, function($q) use ($year) {
+                            return $q->whereYear('created_at', $year);
+                        })
+                        ->simplePaginate(10);
         }
-        elseif ($currentUser->id_role == 1) {
+        elseif ($currentUser->id_role == 1) { // Kaprodi
             $usersSameProdi = User::where('id_prodi', $currentUser->id_prodi)
                              ->pluck('username');
-
+    
             $query = S_Aktif::whereIn('nrp', $usersSameProdi)
-                            ->where('nrp', 'LIKE', '%' . $id . '%')
-                            ->simplePaginate(10);
+                        ->when($id, function($q) use ($id) {
+                            return $q->where('nrp', 'LIKE', '%' . $id . '%');
+                        })
+                        ->when($month, function($q) use ($month) {
+                            return $q->whereMonth('created_at', $month);
+                        })
+                        ->when($year, function($q) use ($year) {
+                            return $q->whereYear('created_at', $year);
+                        })
+                        ->simplePaginate(10);
         }
-        elseif ($currentUser->id_role == 2) {
+        elseif ($currentUser->id_role == 2) { // TU
             $usersSameProdi = User::where('id_prodi', $currentUser->id_prodi)
                              ->pluck('username');
-
+    
             $query = S_Aktif::whereIn('nrp', $usersSameProdi)
-                            ->where('nrp', 'LIKE', '%' . $id . '%')
-                            ->where('status', 'Disetujui')
-                            ->simplePaginate(10);
+                        ->where('status', 'Disetujui')
+                        ->when($id, function($q) use ($id) {
+                            return $q->where('nrp', 'LIKE', '%' . $id . '%');
+                        })
+                        ->when($month, function($q) use ($month) {
+                            return $q->whereMonth('created_at', $month);
+                        })
+                        ->when($year, function($q) use ($year) {
+                            return $q->whereYear('created_at', $year);
+                        })
+                        ->simplePaginate(10);
         }
-        elseif ($currentUser->id_role == 3) {
+        elseif ($currentUser->id_role == 3) { // Mahasiswa
             $query = S_Aktif::where('nrp', $currentUser->username)
-                            ->simplePaginate(10);
+                        ->when($month, function($q) use ($month) {
+                            return $q->whereMonth('created_at', $month);
+                        })
+                        ->when($year, function($q) use ($year) {
+                            return $q->whereYear('created_at', $year);
+                        })
+                        ->simplePaginate(10);
         } 
-
-        return view('surat-aktif.index', compact('id','query'));
+    
+        return view('surat-aktif.index', compact('id', 'month', 'year', 'query'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */

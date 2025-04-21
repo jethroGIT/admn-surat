@@ -116,7 +116,7 @@
                 <div class="col-lg-4">
                     <!-- Approval Actions -->
                     <div class="card mb-4">
-                        <form method="POST" action="{{ route('updateSuratLHS', $suratLHS->id) }}">
+                        <form method="POST" action="{{ route('updateStatusSuratLHS', $suratLHS->id) }}">
                             @csrf
                             <div class="card-header bg-primary text-white">
                                 <i class="fas fa-clipboard-check me-2"></i>Persetujuan Kelulusan
