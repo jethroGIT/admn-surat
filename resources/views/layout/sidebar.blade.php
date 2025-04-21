@@ -17,7 +17,16 @@
                 <span class="font-medium">Dashboard</span>
             </a>
         </li>
-        
+
+        @if (auth()->user()->role->role_name == 'admin')
+            <li class="nav-item">
+                <a href="{{ route('prodi') }}" class="flex items-center p-3 text-white rounded-lg hover:bg-blue-500/30 transition-colors duration-200 group">
+                    <i class="bi bi-building mr-3 text-lg group-hover:text-blue-100"></i>
+                    <span class="font-medium">Program Studi</span>
+                </a>
+            </li>
+        @endif
+
         <!-- Kelola Akun - Accordion -->
         @if (in_array(auth()->user()->role->role_name, ['admin', 'tu']))
             <li class="nav-item">
@@ -58,7 +67,6 @@
             </li>
         @endif
         
-        <!-- Kelola Surat - Accordion -->
         <li class="nav-item">
             <div x-data="{ open: false }">
                 <button @click="open = !open" class="w-full flex items-center justify-between p-3 text-white rounded-lg hover:bg-blue-500/30 transition-colors duration-200 group">
