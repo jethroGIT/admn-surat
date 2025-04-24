@@ -49,15 +49,15 @@ class UserController extends Controller
             return view('kelola-kaprodi.index', compact('id', 'users'));
         } 
         elseif ($tipe == 'tu') {
+            // Jika user bukan admin
+            if ($currentUser->id_role != 0) {
+                abort(403, 'Akses ditolak.');
+            }
+            
             $id = $request->search ?? '';
             $query = User::where('username', 'LIKE', '%' . $id . '%')
                 ->where('id_role', 2)
                 ->with('prodi');
-            
-            // Jika user bukan admin, filter berdasarkan prodi yang sama
-            if ($currentUser->id_role != 0) { // Asumsi role 0 adalah admin/superadmin
-                $query->where('id_prodi', $currentProdiId);
-            }
             
             $users = $query->simplePaginate(10);
             return view('kelola-tu.index', compact('id', 'users'));
@@ -94,6 +94,11 @@ class UserController extends Controller
             return view('kelola-kaprodi.create');
         }
         elseif ($tipe == 'tu') {
+            $currentUser = Auth::user();
+            if ($currentUser->id_role != 0) {
+                abort(403, 'Akses ditolak.');
+            }
+
             return view('kelola-tu.create');
         } 
         else {
@@ -239,6 +244,11 @@ class UserController extends Controller
             return view('kelola-kaprodi.view', compact('kaprodi'));
         }
         elseif ($tipe == 'tu') {
+            $currentUser = Auth::user();
+            if ($currentUser->id_role != 0) {
+                abort(403, 'Akses ditolak.');
+            }
+
             $tu = User::where('username', $username)->with('prodi')->first();
             return view('kelola-tu.view', compact('tu'));
         }
@@ -273,6 +283,11 @@ class UserController extends Controller
             return view('kelola-kaprodi.edit', compact('kaprodi'));
         }
         elseif ($tipe == 'tu') {
+            $currentUser = Auth::user();
+            if ($currentUser->id_role != 0) {
+                abort(403, 'Akses ditolak.');
+            }
+            
             $tu = User::where('username', $username)->with('prodi')->first();
             return view('kelola-tu.edit', compact('tu'));
         }

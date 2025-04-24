@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('profile/update-password', [ProfilController::class, 'updatePassword'])->name('updatePassword');
     
     // Routes User
-    Route::middleware(['userAkses:0,1,2'])->group(function () {
+    Route::middleware(['userAkses:0,2'])->group(function () {
         Route::get('kelola-user/{tipe}', [UserController::class, 'index'])->name('indexUser');
         Route::get('kelola-user/{tipe}/{username}/view', [UserController::class, 'show'])->name('showUser');
     });
@@ -126,10 +126,6 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/prodi/{id}/destroy', [ProdiController::class, 'destroy'])->name('destroyProdi');
     });
 });
-
-
-
-
 
 Route::get('/registrasi-admin', function () {
     return view('auth.registrasiAdmin');
