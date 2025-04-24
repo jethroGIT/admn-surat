@@ -1,13 +1,13 @@
 @extends('layout.layout')
-@section('title', 'Kelola Mahasiswa')
+@section('title', 'Akun Mahasiswa')
 
 @section('content')
     <div class="container mx-auto px-4 py-8">
         <!-- Header Section -->
         <div class="flex flex-col md:flex-row justify-between items-center mb-8">
             <div class="mb-4 md:mb-0">
-                <h1 class="text-3xl font-bold text-indigo-800">Kelola Data Mahasiswa</h1>
-                <p class="text-gray-600">Manajemen data mahasiswa terdaftar</p>
+                <h1 class="text-3xl font-bold text-indigo-800">Manajemen Data Mahasiswa</h1>
+                <p class="text-gray-600">Sistem pengelolaan data untuk Mahasiswa</p>
             </div>
             
             <a href="{{ route('createUser', ['tipe' => 'mahasiswa']) }}" 
@@ -15,7 +15,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                 </svg>
-                Tambah Mahasiswa
+                Buat Akun
             </a>
         </div>
 
@@ -29,7 +29,7 @@
                                 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" name="search" value="{{ $id }}" 
+                        <input type="text" name="search" value="{{ request('search') }}" 
                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500" 
                                placeholder="Cari berdasarkan NRP...">
                     </div>
@@ -47,8 +47,20 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <h3 class="mt-4 text-lg font-medium text-gray-900">Data tidak ditemukan</h3>
-                    <p class="mt-1 text-gray-500">Tidak ada data mahasiswa yang sesuai dengan pencarian Anda.</p>
+                    <h3 class="mt-4 text-lg font-medium text-gray-900">
+                        @if(request()->has('search'))
+                            Data tidak ditemukan
+                        @else
+                            Belum ada Data Mahasiswa
+                        @endif
+                    </h3>
+                    <p class="mt-1 text-gray-500">
+                        @if(request()->has('search'))
+                            Tidak ada data mahasiswa yang sesuai dengan pencarian Anda.
+                        @else
+                            Silakan tambahkan data mahasiswa dengan menekan tombol "Buat Akun" di atas.
+                        @endif
+                    </p>
                 </div>
             @else
                 <div class="overflow-x-auto">
@@ -117,9 +129,11 @@
         </div>
 
         <!-- Pagination -->
+        @if($users->count() > 0)
         <div class="mt-6">
             {{ $users->links() }}
         </div>
+        @endif
     </div>
 @endsection
 

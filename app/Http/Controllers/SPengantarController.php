@@ -37,11 +37,15 @@ class SPengantarController extends Controller
         $id = $request->search ?? '';
         $month = $request->month ?? '';
         $year = $request->year ?? '';
-    
+        $status = $request->status ?? '';
+
         if ($currentUser->id_role == 0) { // Admin
             $query = S_Pengantar::query()
                         ->when($id, function($q) use ($id) {
                             return $q->where('nrp', 'LIKE', '%' . $id . '%');
+                        })
+                        ->when($status, function($q) use ($status) {
+                            return $q->where('status', $status);
                         })
                         ->when($month, function($q) use ($month) {
                             return $q->whereMonth('created_at', $month);
@@ -58,6 +62,9 @@ class SPengantarController extends Controller
             $query = S_Pengantar::whereIn('nrp', $usersSameProdi)
                         ->when($id, function($q) use ($id) {
                             return $q->where('nrp', 'LIKE', '%' . $id . '%');
+                        })
+                        ->when($status, function($q) use ($status) {
+                            return $q->where('status', $status);
                         })
                         ->when($month, function($q) use ($month) {
                             return $q->whereMonth('created_at', $month);
@@ -86,6 +93,9 @@ class SPengantarController extends Controller
         }
         elseif ($currentUser->id_role == 3) { // Mahasiswa
             $query = S_Pengantar::where('nrp', $currentUser->username)
+                        ->when($status, function($q) use ($status) {
+                            return $q->where('status', $status);
+                        })
                         ->when($month, function($q) use ($month) {
                             return $q->whereMonth('created_at', $month);
                         })
@@ -95,7 +105,7 @@ class SPengantarController extends Controller
                         ->simplePaginate(10);
         } 
     
-        return view('surat-pengantar.index', compact('id', 'month', 'year', 'query'));
+        return view('surat-pengantar.index', compact('id', 'month', 'year', 'status','query'));
     }
 
     /**

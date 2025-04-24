@@ -211,7 +211,7 @@ class UserController extends Controller
                 'username' => $request->username,
                 'password' => bcrypt($request->password),
                 'id_role' => 0,
-                'id_prodi' => 0,
+                'id_prodi' => 1,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'email' => $request->email,
@@ -287,7 +287,7 @@ class UserController extends Controller
             if ($currentUser->id_role != 0) {
                 abort(403, 'Akses ditolak.');
             }
-            
+
             $tu = User::where('username', $username)->with('prodi')->first();
             return view('kelola-tu.edit', compact('tu'));
         }

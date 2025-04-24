@@ -33,8 +33,7 @@ class ProdiController extends Controller
         ]);
     
         Prodi::create([
-            'id' => 5,
-            'nama_prodi' => $request->nama_prodi,
+            'nama_prodi' => $request->nama_prodi
         ]);
     
         session()->flash('success', 'Prodi berhasil ditambahkan');
