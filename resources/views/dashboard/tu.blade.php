@@ -66,7 +66,7 @@
         <div class="p-4 bg-blue-600 text-white">
             <h2 class="font-bold">Pengajuan Surat Keterangan Aktif</h2>
         </div>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-visible">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-100">
                     <tr>
@@ -120,7 +120,7 @@
         </div>
         @if ($totalSuratAktif == 0)
             <div class="p-4 border-t flex justify-between items-center">
-                <div class="text-sm text-gray-600 mt-2">
+                <div class="text-sm text-gray-600 mt-2 text-center w-full">
                     <span class="font-medium">Tidak ada pengajuan</span>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                     Halaman ini hanya menampilkan
                     <span class="font-medium">1 sampai 5</span> data terbaru.
                 </div>
-                <a href="{{ route('surat-aktif') }}" class="px-3 py-1 border rounded-md">
+                <a href="{{ route('surat-lhs') }}" class="px-3 py-1 border rounded-md">
                     Lihat Selengkapnya
                 </a>
             </div>
@@ -143,7 +143,7 @@
         <div class="p-4 bg-blue-600 text-white">
             <h2 class="font-bold">Pengajuan Surat Keterangan Lulus</h2>
         </div>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-visible">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-100">
                     <tr>
@@ -197,7 +197,7 @@
         </div>
         @if ($totalSuratLulus == 0)
             <div class="p-4 border-t flex justify-between items-center">
-                <div class="text-sm text-gray-600 mt-2">
+                <div class="text-sm text-gray-600 mt-2 text-center w-full">
                     <span class="font-medium">Tidak ada pengajuan</span>
                 </div>
             </div>
@@ -219,7 +219,7 @@
         <div class="p-4 bg-blue-600 text-white">
             <h2 class="font-bold">Pengajuan Surat Keterangan Laporan Hasil Studi</h2>
         </div>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-visible">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-100">
                     <tr>
@@ -272,7 +272,7 @@
         </div>
         @if ($totalSuratLHS == 0)
             <div class="p-4 border-t flex justify-between items-center">
-                <div class="text-sm text-gray-600 mt-2">
+                <div class="text-sm text-gray-600 mt-2 text-center w-full">
                     <span class="font-medium">Tidak ada pengajuan</span>
                 </div>
             </div>
@@ -294,15 +294,14 @@
         <div class="p-4 bg-blue-600 text-white">
             <h2 class="font-bold">Pengajuan Surat Pengantar Mata Kuliah</h2>
         </div>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-visible">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-100">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">No. Pengajuan</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">NIM</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nama Mahasiswa</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal Pengajuan
-                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal Pengajuan</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">File</th>
                     </tr>
@@ -310,7 +309,7 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     <!-- Data 1 -->
                     @foreach ($suratPengantar as $suratP)
-                        @if ($suratP == null)
+                        @if ($suratP->file == null)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $suratP->id }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $suratP->nrp }}</td>
@@ -348,7 +347,7 @@
         </div>
         @if ($totalSuratPengantar == 0)
             <div class="p-4 border-t flex justify-between items-center">
-                <div class="text-sm text-gray-600 mt-2">
+                <div class="text-sm text-gray-600 mt-2 text-center w-full">
                     <span class="font-medium">Tidak ada pengajuan</span>
                 </div>
             </div>
@@ -357,7 +356,7 @@
                 <div class="text-sm text-gray-600 mt-2">
                     Halaman ini hanya menampilkan
                     <span class="font-medium">1 sampai 5</span> data terbaru.
-                </div> 
+                </div>
                 <a href="{{ route('surat-lhs') }}" class="px-3 py-1 border rounded-md">
                     Lihat Selengkapnya
                 </a>

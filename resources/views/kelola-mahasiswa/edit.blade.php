@@ -13,16 +13,25 @@
                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
             </div>
 
-            <div>
-                <label for="id_prodi" class="block text-sm font-medium text-gray-700">Program Studi:</label>
-                <select id="id_prodi" name="id_prodi" required
-                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Pilih Program Studi</option>
-                    <option value="2" {{ $mahasiswa->id_prodi == '2' ? 'selected' : '' }}>Teknik Informatika</option>
-                    <option value="3" {{ $mahasiswa->id_prodi == '3' ? 'selected' : '' }}>Sistem Informasi</option>
-                    <option value="4" {{ $mahasiswa->id_prodi == '4' ? 'selected' : '' }}>Magister Ilmu Komputer</option>
-                </select>
-            </div>
+            @if(auth()->user()->role->role_name == 'admin')                
+                <div>
+                    <label for="id_prodi" class="block text-sm font-medium text-gray-700">Program Studi:</label>
+                    <select id="id_prodi" name="id_prodi" required
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Pilih Program Studi</option>
+                        <option value="2" {{ $mahasiswa->id_prodi == '2' ? 'selected' : '' }}>Teknik Informatika</option>
+                        <option value="3" {{ $mahasiswa->id_prodi == '3' ? 'selected' : '' }}>Sistem Informasi</option>
+                        <option value="4" {{ $mahasiswa->id_prodi == '4' ? 'selected' : '' }}>Magister Ilmu Komputer</option>
+                    </select>
+                </div>
+            @else
+                <div>
+                    <label for="id_prodi" class="block text-sm font-medium text-gray-700">Program Studi</label>
+                    <input type="text" id="id_prodi" name="id_prodi" value="{{ $mahasiswa->prodi->nama_prodi }}" readonly
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100">
+                </div>
+            @endif
+            
 
             <div>
                 <label for="nama" class="block text-sm font-medium text-gray-700">Nama:</label>
@@ -54,8 +63,7 @@
                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     <option value="">Pilih Status</option>
                     <option value="Aktif" {{ $mahasiswa->status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                    <option value="Cuti" {{ $mahasiswa->status == 'Cuti' ? 'selected' : '' }}>Cuti</option>
-                    <option value="Lulus" {{ $mahasiswa->status == 'Lulus' ? 'selected' : '' }}>Lulus</option>
+                    <option value="Tidak Aktif" {{ $mahasiswa->status == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
                 </select>
             </div>
             

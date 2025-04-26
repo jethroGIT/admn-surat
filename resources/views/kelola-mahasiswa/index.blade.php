@@ -6,7 +6,7 @@
         <!-- Header Section -->
         <div class="flex flex-col md:flex-row justify-between items-center mb-8">
             <div class="mb-4 md:mb-0">
-                <h1 class="text-3xl font-bold text-indigo-800">Manajemen Data Mahasiswa</h1>
+                <h1 class="text-3xl font-bold text-indigo-800">Manajemen Data Akun Mahasiswa</h1>
                 <p class="text-gray-600">Sistem pengelolaan data untuk Mahasiswa</p>
             </div>
             

@@ -186,7 +186,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-4">
-                                            <a href="{{ route('showSuratLulus', $surat->id) }}"
+                                            <a href="{{ route('showSuratPengantar', $surat->id) }}"
                                                 class="text-indigo-600 hover:text-indigo-900 flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1"
                                                     viewBox="0 0 20 20" fill="currentColor">

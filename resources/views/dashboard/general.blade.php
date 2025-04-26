@@ -66,7 +66,7 @@
         <div class="p-4 bg-blue-600 text-white">
             <h2 class="font-bold">Pengajuan Surat Keterangan Aktif</h2>
         </div>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-visible">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-100">
                     <tr>
@@ -109,7 +109,7 @@
         </div>
         @if ($totalSuratAktif == 0)
             <div class="p-4 border-t flex justify-between items-center">
-                <div class="text-sm text-gray-600 mt-2">
+                <div class="text-sm text-gray-600 mt-2 text-center w-full">
                     <span class="font-medium">Tidak ada pengajuan</span>
                 </div>
             </div>
@@ -132,7 +132,7 @@
         <div class="p-4 bg-blue-600 text-white">
             <h2 class="font-bold">Pengajuan Surat Keterangan Lulus</h2>
         </div>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-visible">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-100">
                     <tr>
@@ -175,7 +175,7 @@
         </div>
         @if ($totalSuratLulus == 0)
             <div class="p-4 border-t flex justify-between items-center">
-                <div class="text-sm text-gray-600 mt-2">
+                <div class="text-sm text-gray-600 mt-2 text-center w-full">
                     <span class="font-medium">Tidak ada pengajuan</span>
                 </div>
             </div>
@@ -197,7 +197,7 @@
         <div class="p-4 bg-blue-600 text-white">
             <h2 class="font-bold">Pengajuan Surat Keterangan Laporan Hasil Studi</h2>
         </div>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-visible">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-100">
                     <tr>
@@ -239,7 +239,7 @@
         </div>
         @if ($totalSuratLHS == 0)
             <div class="p-4 border-t flex justify-between items-center">
-                <div class="text-sm text-gray-600 mt-2">
+                <div class="text-sm text-gray-600 mt-2 text-center w-full">
                     <span class="font-medium">Tidak ada pengajuan</span>
                 </div>
             </div>
@@ -261,7 +261,7 @@
         <div class="p-4 bg-blue-600 text-white">
             <h2 class="font-bold">Pengajuan Surat Pengantar Mata Kuliah</h2>
         </div>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-visible">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-100">
                     <tr>
@@ -304,7 +304,7 @@
         </div>
         @if ($totalSuratPengantar == 0)
             <div class="p-4 border-t flex justify-between items-center">
-                <div class="text-sm text-gray-600 mt-2">
+                <div class="text-sm text-gray-600 mt-2 text-center w-full">
                     <span class="font-medium">Tidak ada pengajuan</span>
                 </div>
             </div>

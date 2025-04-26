@@ -48,15 +48,23 @@
                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
             </div>
 
-            <div>
-                <label for="status" class="block text-sm font-medium text-gray-700">Status:</label>
-                <select id="status" name="status" required
-                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Pilih Status</option>
-                    <option value="Aktif" {{ $kaprodi->status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                    <option value="Tidak Aktif" {{ $kaprodi->status == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
-                </select>
-            </div>
+            @if(auth()->user()->role->role_name == 'admin')
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700">Status:</label>
+                    <select id="status" name="status" required
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Pilih Status</option>
+                        <option value="Aktif" {{ $kaprodi->status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="Tidak Aktif" {{ $kaprodi->status == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                    </select>
+                </div>
+            @else
+                <div>
+                    <label for="id_prodi" class="block text-sm font-medium text-gray-700">Program Studi</label>
+                    <input type="text" id="id_prodi" name="id_prodi" value="{{ $kaprodi->prodi->nama_prodi }}" readonly
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100">
+                </div>
+            @endif
             
             <div class="flex justify-between mt-6">
                 <button type="button" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-md"><a
